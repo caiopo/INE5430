@@ -50,10 +50,11 @@ class HumanPlayer(Player):
         print('Player {}: choose your hand'.format(self.name))
 
         try:
-            hand = int(getpass('Hand: '))
+            hand = int(input('Hand: '))
         except ValueError:
             print('Input is not a number')
             self.choose_hand()
+            return
 
         if 0 <= hand <= self.picks:
             self.hand = hand
@@ -78,7 +79,7 @@ class HumanPlayer(Player):
             guess = int(input('Guess: '))
         except ValueError:
             print('Input is not a number')
-            return self._get_guess()
+            return self.guess(total_picks, guesses)
 
         if not (0 <= guess <= total_picks):
             print('Guess must be between 0 and {}'.format(total_picks))
