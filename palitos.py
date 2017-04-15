@@ -50,15 +50,17 @@ class PoorBot(Player):
 
     def guess(self, total_picks, guesses, player_picks):
         if guesses == []:
-            return randint(self.picks, (total_picks-(DEFAULT_PICKS-self.picks)))
+            return randint(self.picks, (total_picks-(self.picks-self.hand)))
         else:
             others_players_hands = []
             for i, j in enumerate(guesses):
                 hand = (j*player_picks[i])//total_picks
+
                 others_players_hands.append(hand)
 
-            a = self.picks+sum([h for h in others_players_hands])
-            b = (DEFAULT_PICKS-self.picks)+(sum([DEFAULT_PICKS-h for h in others_players_hands]))
+            a = self.hand+sum([h for h in others_players_hands])
+            b = (self.picks-self.hand)+(sum(
+                    [player_picks[i]-h for i, h in enumerate(others_players_hands)]))
 
             if b < a:
                 return a
