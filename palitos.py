@@ -41,9 +41,29 @@ class ArtificialPlayer(Player):
     def choose_hand(self):
         self.hand = randint(0, self.picks)
 
-    def guess(self, total_picks, guesses):
+    def guess(self, total_picks, guesses, player_picks):
         return randint(self.picks, total_picks)
 
+class PoorBot(Player):
+    def choose_hand(self):
+        self.hand = randint(0, self.picks)
+
+    def guess(self, total_picks, guesses, player_picks):
+        if guesses == []:
+            return randint(self.picks, (total_picks-(DEFAULT_PICKS-self.picks)))
+        else:
+            others_players_hands = []
+            for i, j in enumerate(guesses):
+                hand = (j*player_picks[i])//total_picks
+                others_players_hands.append(hand)
+
+            a = self.picks+sum([h for h in others_players_hands])
+            b = (DEFAULT_PICKS-self.picks)+(sum([DEFAULT_PICKS-h for h in others_players_hands]))
+
+            if b < a:
+                return a
+            else:
+                return randint(a, b)
 
 class HumanPlayer(Player):
     def choose_hand(self):
@@ -68,7 +88,7 @@ class HumanPlayer(Player):
 
             self.choose_hand()
 
-    def guess(self, total_picks, guesses):
+    def guess(self, total_picks, guesses, player_picks):
         print('Player {}: make your guess (between 0 and {})'.format(
             self.name, total_picks))
         if guesses:
@@ -103,6 +123,7 @@ class Match:
 
         self.total_picks = sum([p.picks for p in players])
         self.response = sum([p.hand for p in players])
+        self.players_picks = []
         self.guesses = []
 
         vprint('\nMatch #{}: total_picks={}, response={}\n\tplayers={}'.format(
@@ -110,9 +131,11 @@ class Match:
 
     def run(self):
         for player in self.players:
-            guess = player.guess(self.total_picks, self.guesses)
+            guess = player.guess(self.total_picks, self.guesses, 
+                                 self.players_picks)
 
             self.guesses.append(guess)
+            self.players_picks.append(player.picks)
 
             vprint('Player {} guessed {}'.format(player.name, guess))
 
@@ -177,16 +200,17 @@ if __name__ == '__main__':
     humans = args.human
 
     if args.ai is None:
-        ais = list(range(MAX_PLAYERS - len(humans)))
+        ais = list(range(MAX_PLAYERS - len(humans)-1))
     else:
-        ais = list(range(args.ai))
+        ais = list(range(args.ai-1))
 
     if (len(humans) + len(ais)) > MAX_PLAYERS:
         print('error: maximum number of players is {}'.format(MAX_PLAYERS))
         exit()
 
     players = ([HumanPlayer(name, picks) for name in humans] +
-               [ArtificialPlayer('AI_{}'.format(name), picks) for name in ais])
+               [ArtificialPlayer('AI_{}'.format(name), picks) for name in ais] +
+               [PoorBot('PoorBot', picks)])
 
     game = Game(players)
 
