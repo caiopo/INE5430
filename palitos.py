@@ -1,8 +1,8 @@
 #! /usr/bin/env python3
 
-from random import randint
-from getpass import getpass
+from random import randint, shuffle
 from argparse import ArgumentParser
+from math import floor
 
 DEFAULT_PICKS = 3
 MAX_PLAYERS = 5
@@ -24,9 +24,9 @@ class Player:
         self.hand = None
 
     def remove_pick(self):
-        if self.picks > 1:
-            self.picks -= 1
-        else:
+        self.picks -= 1
+
+        if self.picks == 0:
             raise GameFinished()
 
     def __str__(self):
@@ -42,7 +42,12 @@ class ArtificialPlayer(Player):
         self.hand = randint(0, self.picks)
 
     def guess(self, total_picks, guesses, player_picks):
-        return randint(self.picks, total_picks)
+        while True:
+            g = randint(self.hand, total_picks - (self.picks - self.hand))
+
+            if g not in guesses:
+                return g
+
 
 class PoorBot(Player):
     def choose_hand(self):
@@ -50,40 +55,41 @@ class PoorBot(Player):
 
     def guess(self, total_picks, guesses, player_picks):
         if guesses == []:
-            return randint(self.picks, (total_picks-(self.picks-self.hand)))
+            return randint(self.hand, total_picks - (self.picks - self.hand))
         else:
             others_players_hands = []
             for i, j in enumerate(guesses):
-                hand = round((j*player_picks[i])/total_picks)
+                hand = floor((j * player_picks[i]) / total_picks)
 
                 others_players_hands.append(hand)
 
-            #test print  
-            print(others_players_hands)
+            # test print
+            vprint(others_players_hands)
 
-            #needs improvement to the outter possibilities, such as one player
-            #hand 3 and the bot hand 0
-            a = self.hand+sum([h for h in others_players_hands])
-            b = total_picks - ((self.picks-self.hand) + 
-                               (sum(p for p in player_picks) - 
-                                sum(h for h in others_players_hands)))
+            # needs improvement to the outer possibilities, such as one player
+            # hand 3 and the bot hand 0
+            a = self.hand + sum(others_players_hands)
+            b = total_picks - ((self.picks - self.hand) +
+                               (sum(player_picks) -
+                                sum(others_players_hands)))
 
-            #quick fix
-            if b < total_picks:
-                b += 1
+            # quick fix
+            # if b < total_picks:
+            #     b += 1
 
-            if a > self.hand:
-                a -=1
+            # if a > self.hand:
+            #     a -= 1
 
             while True:
                 guess = randint(a, b)
+
                 if guess not in guesses:
                     return guess
-                else:
-                    if a > 0:
-                        a -= 1
-                    if b < total_picks:
-                        b += 1
+
+                if a > 0:
+                    a -= 1
+                if b < total_picks:
+                    b += 1
 
 
 class HumanPlayer(Player):
@@ -152,8 +158,8 @@ class Match:
 
     def run(self):
         for player in self.players:
-            guess = player.guess(self.total_picks, self.guesses, 
-                                 self.players_picks)
+            guess = player.guess(self.total_picks, tuple(self.guesses),
+                                 tuple(self.players_picks))
 
             self.guesses.append(guess)
             self.players_picks.append(player.picks)
@@ -171,6 +177,7 @@ class Match:
 
 class Game:
     def __init__(self, players):
+        shuffle(players)
         self.players = players
 
     def run(self):
@@ -191,18 +198,56 @@ class Game:
                 except GameFinished:
                     return winner
 
-                self.players.remove(winner)
+                index = self.players.index(winner)
 
-                self.players.insert(0, winner)
+                self.players = self.players[index:] + self.players[:index]
+
+                vprint('order of play:', self.players)
 
 
 if __name__ == '__main__':
+    from collections import defaultdict
+
+    for _ in range(10):
+
+        winners = defaultdict(int)
+
+        for _ in range(10000):
+            players = (
+                [ArtificialPlayer('AI_{}'.format(n), DEFAULT_PICKS)
+                 for n in [2, 1]] +
+                [PoorBot('PoorBot_{}'.format(n), DEFAULT_PICKS)
+                 for n in [2, 1]]
+            )
+
+            setattr(vprint, 'verbose', False)
+
+            game = Game(players)
+
+            winner = game.run()
+
+            winners[winner.name] += 1
+
+            # print([(p.name, p.picks, p.hand) for p in players])
+
+            # print('winner:', winner)
+
+            # print([(p.name, p.picks, p.hand) for p in players])
+
+        print(sorted(winners.items(), key=lambda x: x[1], reverse=True))
+
+
+def main():
     parser = ArgumentParser(
         description='Play the brazilian popular game "Porrinha"')
 
     parser.add_argument('-a', '--ai', type=int, default=None, metavar='N',
                         help=('set the number of AI players '
                               '(default: 5 - (n of humans))'))
+
+    parser.add_argument('-r', '--random', type=int, default=0, metavar='N',
+                        help=('set the number of random players '
+                              '(default: 0'))
 
     parser.add_argument('-p', '--picks', type=int, default=3, metavar='P',
                         help='set initial number of picks (default: 3)')
@@ -219,19 +264,22 @@ if __name__ == '__main__':
 
     picks = args.picks
     humans = args.human
+    randoms = list(range(args.random))
 
     if args.ai is None:
-        ais = list(range(MAX_PLAYERS - len(humans)-1))
+        ais = list(range(MAX_PLAYERS - len(humans) - 1))
     else:
-        ais = list(range(args.ai-1))
+        ais = list(range(args.ai - 1))
 
-    if (len(humans) + len(ais)) > MAX_PLAYERS:
+    if (len(humans) + len(ais) + len(randoms)) > MAX_PLAYERS:
         print('error: maximum number of players is {}'.format(MAX_PLAYERS))
         exit()
 
-    players = ([HumanPlayer(name, picks) for name in humans] +
-               [ArtificialPlayer('AI_{}'.format(name), picks) for name in ais] +
-               [PoorBot('PoorBot', picks)])
+    players = (
+        [HumanPlayer(name, picks) for name in humans] +
+        [ArtificialPlayer('AI_{}'.format(name), picks) for name in ais] +
+        [PoorBot('PoorBot_{}'.format(name), picks) for name in randoms]
+    )
 
     game = Game(players)
 
