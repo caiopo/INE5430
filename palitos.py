@@ -2,7 +2,6 @@
 
 from random import randint, shuffle
 from argparse import ArgumentParser
-from math import floor
 
 DEFAULT_PICKS = 3
 MAX_PLAYERS = 5
@@ -59,7 +58,7 @@ class PoorBot(Player):
         else:
             others_players_hands = []
             for i, j in enumerate(guesses):
-                hand = floor((j * player_picks[i]) / total_picks)
+                hand = round((j * player_picks[i]) / total_picks)
 
                 others_players_hands.append(hand)
 
@@ -72,13 +71,6 @@ class PoorBot(Player):
             b = total_picks - ((self.picks - self.hand) +
                                (sum(player_picks) -
                                 sum(others_players_hands)))
-
-            # quick fix
-            # if b < total_picks:
-            #     b += 1
-
-            # if a > self.hand:
-            #     a -= 1
 
             while True:
                 guess = randint(a, b)
@@ -227,12 +219,6 @@ if __name__ == '__main__':
             winner = game.run()
 
             winners[winner.name] += 1
-
-            # print([(p.name, p.picks, p.hand) for p in players])
-
-            # print('winner:', winner)
-
-            # print([(p.name, p.picks, p.hand) for p in players])
 
         print(sorted(winners.items(), key=lambda x: x[1], reverse=True))
 
