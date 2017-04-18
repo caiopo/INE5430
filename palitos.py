@@ -37,6 +37,9 @@ class Player:
 
 
 class ArtificialPlayer(Player):
+    def __init__(self, number, picks):
+        super().__init__('AI_{}'.format(number), picks)
+
     def choose_hand(self):
         self.hand = randint(0, self.picks)
 
@@ -49,6 +52,9 @@ class ArtificialPlayer(Player):
 
 
 class PoorBot(Player):
+    def __init__(self, number, picks):
+        super().__init__('PoorBot_{}'.format(number), picks)
+
     def choose_hand(self):
         self.hand = randint(0, self.picks)
 
@@ -140,8 +146,8 @@ class Match:
         for player in self.players:
             player.choose_hand()
 
-        self.total_picks = sum([p.picks for p in players])
-        self.response = sum([p.hand for p in players])
+        self.total_picks = sum([p.picks for p in self.players])
+        self.response = sum([p.hand for p in self.players])
         self.players_picks = []
         self.guesses = []
 
@@ -194,33 +200,31 @@ class Game:
 
                 self.players = self.players[index:] + self.players[:index]
 
-                vprint('order of play:', self.players)
+
+def simulate(n_ai, n_pb, picks=DEFAULT_PICKS):
+    from collections import defaultdict
+
+    winners = defaultdict(int)
+
+    for _ in range(10000):
+        players = ([ArtificialPlayer(n, picks) for n in range(n_ai)] +
+                   [PoorBot(n, picks) for n in range(n_pb)])
+
+        # print(players)
+
+        game = Game(players)
+
+        winner = game.run()
+
+        winners[winner.name] += 1
+
+    print(sorted(winners.items(), key=lambda x: x[1], reverse=True))
 
 
 if __name__ == '__main__':
-    from collections import defaultdict
+    setattr(vprint, 'verbose', False)
 
-    for _ in range(10):
-
-        winners = defaultdict(int)
-
-        for _ in range(10000):
-            players = (
-                [ArtificialPlayer('AI_{}'.format(n), DEFAULT_PICKS)
-                 for n in [2, 1]] +
-                [PoorBot('PoorBot_{}'.format(n), DEFAULT_PICKS)
-                 for n in [2, 1]]
-            )
-
-            setattr(vprint, 'verbose', False)
-
-            game = Game(players)
-
-            winner = game.run()
-
-            winners[winner.name] += 1
-
-        print(sorted(winners.items(), key=lambda x: x[1], reverse=True))
+    simulate(2, 2, 3)
 
 
 def main():
