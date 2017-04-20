@@ -68,14 +68,9 @@ class PoorBot(Player):
 
                 others_players_hands.append(hand)
 
-            # test print
-            vprint(others_players_hands)
-
-            # needs improvement to the outer possibilities, such as one player
-            # hand 3 and the bot hand 0
             a = self.hand + sum(others_players_hands)
             b = total_picks - ((self.picks - self.hand) +
-                               (sum(player_picks) -
+                               (sum(player_picks[:len(guesses)]) -
                                 sum(others_players_hands)))
 
             while True:
@@ -88,6 +83,32 @@ class PoorBot(Player):
                     a -= 1
                 if b < total_picks:
                     b += 1
+
+class ThalesBot(Player):
+    def __init__(self, number, picks):
+        super().__init__('Thales_{}'.format(number), picks)
+
+    def choose_hand(self):
+        self.hand = randint(0, self.picks)
+
+    def guess(self, total_picks, guesses, player_picks):
+        if guesses == []:
+            return round(self.hand+sum([x/2 for x in player_picks[1:]]))
+        else:
+            others_players_hands = []
+            length = len(guesses)
+            probability = (sum([x/2 for x in player_picks[:length]]) + 
+                           sum(x/2 for x in player_picks[length+1:]))
+            for i in guesses:
+                hand = i - probability
+                if hand >= 0:
+                    others_players_hands.append(hand)
+                else:
+                    others_players_hands.append(0)
+
+            return round(self.hand + sum(others_players_hands) + 
+                         sum([x/2 for x in player_picks[length+1:]]))
+
 
 
 class HumanPlayer(Player):
@@ -148,7 +169,7 @@ class Match:
 
         self.total_picks = sum([p.picks for p in self.players])
         self.response = sum([p.hand for p in self.players])
-        self.players_picks = []
+        self.players_picks = [p.picks for p in self.players]
         self.guesses = []
 
         vprint('\nMatch #{}: total_picks={}, response={}\n\tplayers={}'.format(
@@ -160,7 +181,6 @@ class Match:
                                  tuple(self.players_picks))
 
             self.guesses.append(guess)
-            self.players_picks.append(player.picks)
 
             vprint('Player {} guessed {}'.format(player.name, guess))
 
@@ -201,16 +221,15 @@ class Game:
                 self.players = self.players[index:] + self.players[:index]
 
 
-def simulate(n_ai, n_pb, picks=DEFAULT_PICKS):
+def simulate(n_ai, n_pb, n_tb, picks=DEFAULT_PICKS):
     from collections import defaultdict
 
     winners = defaultdict(int)
 
     for _ in range(10000):
         players = ([ArtificialPlayer(n, picks) for n in range(n_ai)] +
-                   [PoorBot(n, picks) for n in range(n_pb)])
-
-        # print(players)
+                   [PoorBot(n, picks) for n in range(n_pb)] + 
+                   [ThalesBot(n, picks) for n in range(n_tb)])
 
         game = Game(players)
 
@@ -224,7 +243,7 @@ def simulate(n_ai, n_pb, picks=DEFAULT_PICKS):
 if __name__ == '__main__':
     setattr(vprint, 'verbose', False)
 
-    simulate(2, 2, 3)
+    simulate(2, 2, 2, 3)
 
 
 def main():
