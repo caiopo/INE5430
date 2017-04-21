@@ -36,9 +36,9 @@ class Player:
         return self.name
 
 
-class ArtificialPlayer(Player):
+class RandomPlayer(Player):
     def __init__(self, number, picks):
-        super().__init__('AI_{}'.format(number), picks)
+        super().__init__('Random_{}'.format(number), picks)
 
     def choose_hand(self):
         self.hand = randint(0, self.picks)
@@ -51,9 +51,9 @@ class ArtificialPlayer(Player):
                 return g
 
 
-class PoorBot(Player):
+class ArtificialPlayer(Player):
     def __init__(self, number, picks):
-        super().__init__('PoorBot_{}'.format(number), picks)
+        super().__init__('AI_{}'.format(number), picks)
 
     def choose_hand(self):
         self.hand = randint(0, self.picks)
@@ -116,9 +116,9 @@ class HumanPlayer(Player):
     def guess(self, total_picks, guesses, player_picks):
         print('Player {}: make your guess (between 0 and {})'.format(
             self.name, total_picks))
+
         if guesses:
-            print('The number must not be one of the following: {}'.format(
-                sorted(guesses)))
+            print('The number must not be one of the following:', guesses)
 
         try:
             guess = int(input('Guess: '))
@@ -201,16 +201,14 @@ class Game:
                 self.players = self.players[index:] + self.players[:index]
 
 
-def simulate(n_ai, n_pb, picks=DEFAULT_PICKS):
+def simulate(n_ai, n_random, iterations, picks=DEFAULT_PICKS):
     from collections import defaultdict
 
     winners = defaultdict(int)
 
-    for _ in range(10000):
+    for _ in range(iterations):
         players = ([ArtificialPlayer(n, picks) for n in range(n_ai)] +
-                   [PoorBot(n, picks) for n in range(n_pb)])
-
-        # print(players)
+                   [RandomPlayer(n, picks) for n in range(n_random)])
 
         game = Game(players)
 
@@ -221,60 +219,75 @@ def simulate(n_ai, n_pb, picks=DEFAULT_PICKS):
     print(sorted(winners.items(), key=lambda x: x[1], reverse=True))
 
 
-if __name__ == '__main__':
-    setattr(vprint, 'verbose', False)
-
-    simulate(2, 2, 3)
-
-
 def main():
     parser = ArgumentParser(
-        description='Play the brazilian popular game "Porrinha"')
+        description='Play the brazilian popular game "Porrinha"',
+        add_help=False)
 
-    parser.add_argument('-a', '--ai', type=int, default=None, metavar='N',
-                        help=('set the number of AI players '
-                              '(default: 5 - (n of humans))'))
+    parser.add_argument('--help', action='store_true',
+                        help='show this help message and exit')
+
+    parser.add_argument('-a', '--ai', type=int, metavar='N', default=0,
+                        help='set the number of AI players (default: 0)')
 
     parser.add_argument('-r', '--random', type=int, default=0, metavar='N',
                         help=('set the number of random players '
-                              '(default: 0'))
+                              '(default: 0)'))
 
     parser.add_argument('-p', '--picks', type=int, default=3, metavar='P',
                         help='set initial number of picks (default: 3)')
 
-    parser.add_argument('--human', action='store', type=str, metavar='NAME',
-                        nargs='+', default=[], help='add human players')
+    parser.add_argument('-h', '--human', action='store', type=str,
+                        metavar='NAME', nargs='+', default=[],
+                        help='add human players')
 
     parser.add_argument('-v', '--verbose', action='store_true',
                         help='raises level of verbose')
 
+    parser.add_argument('-s', '--simulate', type=int, metavar='N',
+                        help='simulate N games. can\'t be used with "-h"')
+
     args = parser.parse_args()
+
+    print(args)
 
     setattr(vprint, 'verbose', args.verbose)
 
     picks = args.picks
+
     humans = args.human
+    ais = list(range(args.ai))
     randoms = list(range(args.random))
 
-    if args.ai is None:
-        ais = list(range(MAX_PLAYERS - len(humans) - 1))
-    else:
-        ais = list(range(args.ai - 1))
-
     if (len(humans) + len(ais) + len(randoms)) > MAX_PLAYERS:
-        print('error: maximum number of players is {}'.format(MAX_PLAYERS))
-        exit()
+        parser.error('maximum number of players is {}'.format(
+            MAX_PLAYERS))
+
+    if (len(humans) + len(ais) + len(randoms)) < 2:
+        parser.error('minimum number of players is 2')
 
     players = (
         [HumanPlayer(name, picks) for name in humans] +
-        [ArtificialPlayer('AI_{}'.format(name), picks) for name in ais] +
-        [PoorBot('PoorBot_{}'.format(name), picks) for name in randoms]
+        [ArtificialPlayer(n, picks) for n in ais] +
+        [RandomPlayer(n, picks) for n in randoms]
     )
 
-    game = Game(players)
+    if args.simulate is not None:
+        if humans != []:
+            parser.error('can\'t use -s and --human together')
 
-    print([(p.name, p.picks, p.hand) for p in players])
+        simulate(args.ai, args.random, args.simulate, picks)
 
-    print(game.run())
+    else:
 
-    print([(p.name, p.picks, p.hand) for p in players])
+        print('Players:', players)
+
+        game = Game(players)
+
+        winner = game.run()
+
+        print('Winner:', winner.name)
+
+
+if __name__ == '__main__':
+    main()
