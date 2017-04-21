@@ -97,7 +97,7 @@ class ThalesBot(Player):
         else:
             others_players_hands = []
             length = len(guesses)
-            probability = (sum([x/2 for x in player_picks[:length]]) + 
+            probability = (sum([x/2 for x in player_picks[:length]]) +
                            sum(x/2 for x in player_picks[length+1:]))
             for i in guesses:
                 hand = i - probability
@@ -106,7 +106,7 @@ class ThalesBot(Player):
                 else:
                     others_players_hands.append(0)
 
-            return round(self.hand + sum(others_players_hands) + 
+            return round(self.hand + sum(others_players_hands) +
                          sum([x/2 for x in player_picks[length+1:]]))
 
 
@@ -228,7 +228,7 @@ def simulate(n_ai, n_pb, n_tb, picks=DEFAULT_PICKS):
 
     for _ in range(10000):
         players = ([ArtificialPlayer(n, picks) for n in range(n_ai)] +
-                   [PoorBot(n, picks) for n in range(n_pb)] + 
+                   [PoorBot(n, picks) for n in range(n_pb)] +
                    [ThalesBot(n, picks) for n in range(n_tb)])
 
         game = Game(players)
