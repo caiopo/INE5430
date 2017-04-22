@@ -68,11 +68,6 @@ class ArtificialPlayer(Player):
 
                 others_players_hands.append(hand)
 
-            # test print
-            vprint(others_players_hands)
-
-            # needs improvement to the outer possibilities, such as one player
-            # hand 3 and the bot hand 0
             a = self.hand + sum(others_players_hands)
             b = total_picks - ((self.picks - self.hand) +
                                (sum(player_picks) -
@@ -92,7 +87,8 @@ class ArtificialPlayer(Player):
 
 class HumanPlayer(Player):
     def choose_hand(self):
-        print('Player {}: choose your hand'.format(self.name))
+        print('Player {}: choose your hand (between 0 and {})'.format(
+            self.name, self.picks))
 
         try:
             hand = int(input('Hand: '))
@@ -103,14 +99,7 @@ class HumanPlayer(Player):
 
         if 0 <= hand <= self.picks:
             self.hand = hand
-
         else:
-            print('Input must be between 0 and the number of '
-                  'picks you have.')
-
-            if input('Show your number of picks [Y/n] ') != 'n':
-                print(self.picks)
-
             self.choose_hand()
 
     def guess(self, total_picks, guesses, player_picks):
@@ -124,15 +113,15 @@ class HumanPlayer(Player):
             guess = int(input('Guess: '))
         except ValueError:
             print('Input is not a number')
-            return self.guess(total_picks, guesses)
+            return self.guess(total_picks, guesses, player_picks)
 
         if not (0 <= guess <= total_picks):
             print('Guess must be between 0 and {}'.format(total_picks))
-            return self.guess(total_picks, guesses)
+            return self.guess(total_picks, guesses, player_picks)
 
         if guess in guesses:
             print('This number is already taken'.format(total_picks))
-            return self.guess(total_picks, guesses)
+            return self.guess(total_picks, guesses, player_picks)
 
         return guess
 
@@ -176,6 +165,7 @@ class Match:
 class Game:
     def __init__(self, players):
         shuffle(players)
+
         self.players = players
 
     def run(self):
@@ -200,6 +190,8 @@ class Game:
 
                 self.players = self.players[index:] + self.players[:index]
 
+            print(self.players)
+
 
 def simulate(n_ai, n_random, iterations, picks=DEFAULT_PICKS):
     from collections import defaultdict
@@ -216,7 +208,10 @@ def simulate(n_ai, n_random, iterations, picks=DEFAULT_PICKS):
 
         winners[winner.name] += 1
 
-    print(sorted(winners.items(), key=lambda x: x[1], reverse=True))
+    sorted_ranking = sorted(winners.items(), key=lambda x: x[1], reverse=True)
+
+    for name, points in sorted_ranking:
+        print('{}: {}'.format(name, points))
 
 
 def main():
@@ -249,7 +244,9 @@ def main():
 
     args = parser.parse_args()
 
-    print(args)
+    if args.help:
+        parser.print_help()
+        exit()
 
     setattr(vprint, 'verbose', args.verbose)
 
@@ -279,7 +276,6 @@ def main():
         simulate(args.ai, args.random, args.simulate, picks)
 
     else:
-
         print('Players:', players)
 
         game = Game(players)
