@@ -190,8 +190,6 @@ class Game:
 
                 self.players = self.players[index:] + self.players[:index]
 
-            print(self.players)
-
 
 def simulate(n_ai, n_random, iterations, picks=DEFAULT_PICKS):
     from collections import defaultdict
