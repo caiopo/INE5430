@@ -9,7 +9,7 @@ MAX_PLAYERS = 5
 
 def vprint(*args, **kwargs):
     if getattr(vprint, 'verbose'):
-        print(*args, **kwargs):
+        print(*args, **kwargs)
 
 
 class GameFinished(Exception):
@@ -58,7 +58,7 @@ class ArtificialPlayer(Player):
     def choose_hand(self):
         self.hand = randint(0, self.picks)
 
-        def guess(self, total_picks, guesses, player_picks):
+    def guess(self, total_picks, guesses, player_picks):
         others_players_hands = []
         for i, j in enumerate(guesses):
             hand = ((j * player_picks[i]) / total_picks)
@@ -151,6 +151,7 @@ class Match:
                                  tuple(self.players_picks))
 
             self.guesses.append(guess)
+
 
             vprint('Player {} guessed {}'.format(player.name, guess))
 
