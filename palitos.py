@@ -60,15 +60,15 @@ class ArtificialPlayer(Player):
 
     def guess(self, total_picks, guesses, player_picks):
         others_players_hands = []
+
         for i, j in enumerate(guesses):
             hand = ((j * player_picks[i]) / total_picks)
 
             others_players_hands.append(hand)
 
-        guess = self.hand + sum(others_players_hands) + (
-                sum([x/2 for x in player_picks[(len(guesses)+1):]]))
+        guess = round(self.hand + sum(others_players_hands) +
+                      sum(x / 2 for x in player_picks[len(guesses) + 1:]))
 
-        guess = round(guess)
         a = guess
         b = guess
 
@@ -77,15 +77,13 @@ class ArtificialPlayer(Player):
             if guess not in guesses:
                 return guess
 
-            else:
+            if a > 0:
+                a -= 1
+            if b < total_picks:
+                b += 1
 
-                if a > 0:
-                    a -= 1
-                if b < total_picks:
-                    b += 1
+            guess = randint(a, b)
 
-                guess = randint(a, b)
-                
 
 class HumanPlayer(Player):
     def choose_hand(self):
@@ -151,7 +149,6 @@ class Match:
                                  tuple(self.players_picks))
 
             self.guesses.append(guess)
-
 
             vprint('Player {} guessed {}'.format(player.name, guess))
 
