@@ -65,7 +65,7 @@ class ArtificialPlayer(Player):
         else:
             others_players_hands = []
             for i, j in enumerate(guesses):
-                hand = round((j * player_picks[i]) / total_picks)
+                hand = ((j * player_picks[i]) / total_picks)
 
                 others_players_hands.append(hand)
 
