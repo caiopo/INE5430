@@ -58,43 +58,34 @@ class ArtificialPlayer(Player):
     def choose_hand(self):
         self.hand = randint(0, self.picks)
 
-    def guess(self, total_picks, guesses, player_picks):
-        if guesses == []:
-            return round(self.hand + 
-                        (sum(player_picks[1:])/(len(player_picks)-1)))
-        else:
-            others_players_hands = []
-            for i, j in enumerate(guesses):
-                hand = ((j * player_picks[i]) / total_picks)
+        def guess(self, total_picks, guesses, player_picks):
+        others_players_hands = []
+        for i, j in enumerate(guesses):
+            hand = ((j * player_picks[i]) / total_picks)
 
-                others_players_hands.append(hand)
+            others_players_hands.append(hand)
 
-            guess = self.hand + sum(others_players_hands)
+        guess = self.hand + sum(others_players_hands) + (
+                sum([x/2 for x in player_picks[(len(guesses)+1):]]))
 
-            if len(player_picks)-len(guesses) > 1:
-                  guess =+ (sum(player_picks[len(guesses):])/
-                           (len(player_picks)-len(guesses)-1))
+        guess = round(guess)
+        a = guess
+        b = guess
 
-            #not sure if i wrote right below
-            guess = round(guess)
+        while True:
 
-            while True:
+            if guess not in guesses:
+                return guess
 
-                a = guess
-                b = guess
+            else:
 
-                if guess not in guesses:
-                    return guess
+                if a > 0:
+                    a -= 1
+                if b < total_picks:
+                    b += 1
 
-                else:
-
-                    if a > 0:
-                        a -= 1
-                    if b < total_picks:
-                        b += 1
-
-                    guess = randint(a, b)
-
+                guess = randint(a, b)
+                
 
 class HumanPlayer(Player):
     def choose_hand(self):
