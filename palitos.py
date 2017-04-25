@@ -9,7 +9,7 @@ MAX_PLAYERS = 5
 
 def vprint(*args, **kwargs):
     if getattr(vprint, 'verbose'):
-        print(*args, **kwargs)
+        print(*args, **kwargs):
 
 
 class GameFinished(Exception):
@@ -139,7 +139,7 @@ class Match:
 
         self.total_picks = sum([p.picks for p in self.players])
         self.response = sum([p.hand for p in self.players])
-        self.players_picks = []
+        self.players_picks = [p.picks for p in self.players]
         self.guesses = []
 
         vprint('\nMatch #{}: total_picks={}, response={}\n\tplayers={}'.format(
@@ -151,7 +151,6 @@ class Match:
                                  tuple(self.players_picks))
 
             self.guesses.append(guess)
-            self.players_picks.append(player.picks)
 
             vprint('Player {} guessed {}'.format(player.name, guess))
 
