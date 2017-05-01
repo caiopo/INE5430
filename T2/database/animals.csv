@@ -1,0 +1,17 @@
+,animal_name,type,color,skin_type,origin,size
+0,Goldfish,Fish,Orange,Scale,ignore,Tiny
+1,Orca,Fish,Black,Wet,Ocean,Large
+2,Salmon,Fish,Grey,Scale,Ocean,Small
+3,Frog,Amphibian,Green,Wet,ignore,Small
+4,Snake,Reptile,ignore,Scale,ignore,ignore
+5,Turtle,Reptile,Brown,Shell,ignore,Small
+6,Duck,Bird,ignore,Feather,ignore,Small
+7,Eagle,Bird,Brown,Feather,America,Medium
+8,Blue Whale,Mammal,Grey,Wet,Ocean,Large
+9,Cat,Mammal,ignore,Fur,ignore,Small
+10,Cow,Mammal,ignore,Fur,ignore,Medium
+11,Dog,Mammal,ignore,Fur,ignore,Small
+12,Elephant,Mammal,Grey,Dry,Africa,Large
+13,Giraffe,Mammal,Brown,Fur,Africa,Large
+14,Horse,Mammal,ignore,Fur,ignore,Medium
+15,Lion,Mammal,Yellow,Fur,Africa,Medium
