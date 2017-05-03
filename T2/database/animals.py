@@ -78,15 +78,19 @@ def load_animals():
     insert('Goldfish', FISH, ORANGE, SCALE, IGNORE, TINY)
     insert('Orca', FISH, BLACK, WET, OCEAN, LARGE)
     insert('Salmon', FISH, GREY, SCALE, OCEAN, SMALL)
+    insert('Shark', FISH, GREY, WET, OCEAN, LARGE)
 
     insert('Frog', AMPHIBIAN, GREEN, WET, IGNORE, SMALL)
 
-    # insert('Snake', REPTILE, IGNORE, SCALE, IGNORE, IGNORE)  # revisar
+    insert('Crocodile', REPTILE, GREEN, DRY, IGNORE, LARGE)
     insert('Turtle', REPTILE, BROWN, SHELL, IGNORE, SMALL)
 
     insert('Duck', BIRD, IGNORE, FEATHER, IGNORE, SMALL)
     insert('Eagle', BIRD, BROWN, FEATHER, AMERICA, MEDIUM)
+    insert('Falcon', BIRD, BROWN, FEATHER, IGNORE, SMALL)
+    insert('Swan', BIRD, WHITE, FEATHER, AMERICA, IGNORE)
 
+    insert('Monkey', MAMMAL, BROWN, FUR, OCEAN, LARGE)
     insert('Blue Whale', MAMMAL, GREY, WET, OCEAN, LARGE)
     insert('Cat', MAMMAL, IGNORE, FUR, IGNORE, SMALL)
     insert('Cow', MAMMAL, IGNORE, FUR, IGNORE, MEDIUM)
@@ -98,7 +102,7 @@ def load_animals():
 
     return pd.DataFrame(
         data=animals,
-        columns=['name', 'type', 'color', 'skin_type', 'origin', 'size']
+        columns=['name', 'type', 'color', 'skin_type', 'origin', 'size'],
     )
 
 # load_animals().to_csv(path.join(BASE_DIR, 'animals.csv'))
