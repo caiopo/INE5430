@@ -1,6 +1,19 @@
 import unittest
-from animals import load_animals
-from classifier import Classifier, make_ask
+from animals import load_animals, IGNORE
+from classifier import Classifier
+
+
+def make_ask(chosen):
+    count = 0
+
+    def ask(prop, category):
+        nonlocal count
+        count += 1
+        return chosen[prop] == category
+
+    setattr(ask, 'count', lambda: count)
+
+    return ask
 
 
 class ClassifierTest(unittest.TestCase):
@@ -17,3 +30,13 @@ class ClassifierTest(unittest.TestCase):
             result = classifier.discover_animals()
 
             self.assertIn(animal['name'], list(result.name))
+
+    def test_load_fail(self):
+        with self.assertRaises(ValueError):
+            load_animals(
+                [('Any', IGNORE, IGNORE, IGNORE, 'x', 'y', 'z')],
+            )
+
+
+if __name__ == '__main__':
+    unittest.main()

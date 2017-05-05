@@ -48,38 +48,3 @@ class Classifier:
         values = self.df.drop('name', axis=1)
 
         return len(values.drop_duplicates()) != 1
-
-
-def make_ask(chosen):
-    count = 0
-
-    def ask(prop, category):
-        nonlocal count
-        count += 1
-        return chosen[prop] == category
-
-    setattr(ask, 'count', lambda: count)
-
-    return ask
-
-
-if __name__ == '__main__':
-    df = load_animals()
-
-    counts = []
-
-    for animal in df.to_dict(orient='records'):
-        print('want:', animal['name'])
-
-        ask = make_ask(animal)
-
-        classifier = Classifier(df, ask)
-
-        result = classifier.discover_animals()
-
-        assert animal['name'] in list(result.name)
-
-        counts.append(ask.count())
-
-    print(mean(counts))
-

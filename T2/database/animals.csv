@@ -1,16 +1,21 @@
-,name,type,color,skin_type,origin,size
-0,Goldfish,Fish,Orange,Scale,ignore,Tiny
-1,Orca,Fish,Black,Wet,Ocean,Large
-2,Salmon,Fish,Grey,Scale,Ocean,Small
-3,Frog,Amphibian,Green,Wet,ignore,Small
-4,Turtle,Reptile,Brown,Shell,ignore,Small
-5,Duck,Bird,ignore,Feather,ignore,Small
-6,Eagle,Bird,Brown,Feather,America,Medium
-7,Blue Whale,Mammal,Grey,Wet,Ocean,Large
-8,Cat,Mammal,ignore,Fur,ignore,Small
-9,Cow,Mammal,ignore,Fur,ignore,Medium
-10,Dog,Mammal,ignore,Fur,ignore,Small
-11,Elephant,Mammal,Grey,Dry,Africa,Large
-12,Giraffe,Mammal,Brown,Fur,Africa,Large
-13,Horse,Mammal,ignore,Fur,ignore,Medium
-14,Lion,Mammal,Yellow,Fur,Africa,Medium
+,name,type,color,skin_type,origin,size,diet
+0,Goldfish,Fish,Orange,Scale,ignore,Tiny,Omnivore
+1,Orca,Fish,Black,Wet,Ocean,Large,Carnivore
+2,Salmon,Fish,Grey,Scale,Ocean,Small,Omnivore
+3,Shark,Fish,Grey,Wet,Ocean,Large,Carnivore
+4,Frog,Amphibian,Green,Wet,ignore,Small,Carnivore
+5,Crocodile,Reptile,Green,Dry,ignore,Large,Carnivore
+6,Turtle,Reptile,Brown,Shell,ignore,Small,Omnivore
+7,Duck,Bird,ignore,Feather,ignore,Small,Omnivore
+8,Eagle,Bird,Brown,Feather,America,Medium,Carnivore
+9,Falcon,Bird,Brown,Feather,ignore,Small,Carnivore
+10,Swan,Bird,White,Feather,America,ignore,Omnivore
+11,Monkey,Mammal,Brown,Fur,Ocean,Large,Omnivore
+12,Blue Whale,Mammal,Grey,Wet,Ocean,Large,Carnivore
+13,Cat,Mammal,ignore,Fur,ignore,Small,Carnivore
+14,Cow,Mammal,ignore,Fur,ignore,Medium,Carnivore
+15,Dog,Mammal,ignore,Fur,ignore,Small,Carnivore
+16,Elephant,Mammal,Grey,Dry,Africa,Large,Herbivore
+17,Giraffe,Mammal,Brown,Fur,Africa,Large,Herbivore
+18,Horse,Mammal,ignore,Fur,ignore,Medium,Herbivore
+19,Lion,Mammal,Yellow,Fur,Africa,Medium,Carnivore

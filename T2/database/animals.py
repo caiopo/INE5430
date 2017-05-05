@@ -4,6 +4,7 @@ from os import path
 from properties import Colors, SkinTypes, Origins, Size
 from collections import Counter
 
+
 BASE_DIR = path.dirname(path.abspath(__file__))
 
 # Type
@@ -53,56 +54,52 @@ SMALL = 'Small'
 MEDIUM = 'Medium'
 LARGE = 'Large'
 
+# Diet
+CARNIVORE = 'Carnivore'
+HERBIVORE = 'Herbivore'
+OMNIVORE = 'Omnivore'
+
 IGNORE = 'ignore'
 
+_animals = (
+    ('Goldfish', FISH, ORANGE, SCALE, IGNORE, TINY,  OMNIVORE),
+    ('Orca',     FISH, BLACK,  WET,   OCEAN,  LARGE, CARNIVORE),
+    ('Salmon',   FISH, GREY,   SCALE, OCEAN,  SMALL, OMNIVORE),
+    ('Shark',    FISH, GREY,   WET,   OCEAN,  LARGE, CARNIVORE),
 
-def load_animals():
-    animals = []
+    ('Frog', AMPHIBIAN, GREEN, WET, IGNORE, SMALL, CARNIVORE),
 
-    def insert(name, type_, color, skin_type, origin, size):
-        animal = {
-            'name': name,
-            'type': type_,
-            'color': color,
-            'skin_type': skin_type,
-            'origin': origin,
-            'size': size,
-        }
+    ('Crocodile', REPTILE, GREEN, DRY,   IGNORE, LARGE, CARNIVORE),
+    ('Turtle',    REPTILE, BROWN, SHELL, IGNORE, SMALL, OMNIVORE),
 
-        if Counter(animal.values())[IGNORE] > 2:
+    ('Duck',   BIRD, IGNORE, FEATHER, IGNORE,  SMALL,  OMNIVORE),
+    ('Eagle',  BIRD, BROWN,  FEATHER, AMERICA, MEDIUM, CARNIVORE),
+    ('Falcon', BIRD, BROWN,  FEATHER, IGNORE,  SMALL,  CARNIVORE),
+    ('Swan',   BIRD, WHITE,  FEATHER, AMERICA, IGNORE, OMNIVORE),
+
+    ('Monkey',     MAMMAL, BROWN,  FUR, OCEAN,  LARGE,  OMNIVORE),
+    ('Blue Whale', MAMMAL, GREY,   WET, OCEAN,  LARGE,  CARNIVORE),
+    ('Cat',        MAMMAL, IGNORE, FUR, IGNORE, SMALL,  CARNIVORE),
+    ('Cow',        MAMMAL, IGNORE, FUR, IGNORE, MEDIUM, CARNIVORE),
+    ('Dog',        MAMMAL, IGNORE, FUR, IGNORE, SMALL,  CARNIVORE),
+    ('Elephant',   MAMMAL, GREY,   DRY, AFRICA, LARGE,  HERBIVORE),
+    ('Giraffe',    MAMMAL, BROWN,  FUR, AFRICA, LARGE,  HERBIVORE),
+    ('Horse',      MAMMAL, IGNORE, FUR, IGNORE, MEDIUM, HERBIVORE),
+    ('Lion',       MAMMAL, YELLOW, FUR, AFRICA, MEDIUM, CARNIVORE),
+)
+
+
+def load_animals(animals=_animals):
+    for animal in animals:
+        if Counter(animal)[IGNORE] > 2:
             raise ValueError(
                 "can't have more than 2 ignores on the same animal")
 
-        animals.append(animal)
-
-    insert('Goldfish', FISH, ORANGE, SCALE, IGNORE, TINY)
-    insert('Orca', FISH, BLACK, WET, OCEAN, LARGE)
-    insert('Salmon', FISH, GREY, SCALE, OCEAN, SMALL)
-    insert('Shark', FISH, GREY, WET, OCEAN, LARGE)
-
-    insert('Frog', AMPHIBIAN, GREEN, WET, IGNORE, SMALL)
-
-    insert('Crocodile', REPTILE, GREEN, DRY, IGNORE, LARGE)
-    insert('Turtle', REPTILE, BROWN, SHELL, IGNORE, SMALL)
-
-    insert('Duck', BIRD, IGNORE, FEATHER, IGNORE, SMALL)
-    insert('Eagle', BIRD, BROWN, FEATHER, AMERICA, MEDIUM)
-    insert('Falcon', BIRD, BROWN, FEATHER, IGNORE, SMALL)
-    insert('Swan', BIRD, WHITE, FEATHER, AMERICA, IGNORE)
-
-    insert('Monkey', MAMMAL, BROWN, FUR, OCEAN, LARGE)
-    insert('Blue Whale', MAMMAL, GREY, WET, OCEAN, LARGE)
-    insert('Cat', MAMMAL, IGNORE, FUR, IGNORE, SMALL)
-    insert('Cow', MAMMAL, IGNORE, FUR, IGNORE, MEDIUM)
-    insert('Dog', MAMMAL, IGNORE, FUR, IGNORE, SMALL)
-    insert('Elephant', MAMMAL, GREY, DRY, AFRICA, LARGE)
-    insert('Giraffe', MAMMAL, BROWN, FUR, AFRICA, LARGE)
-    insert('Horse', MAMMAL, IGNORE, FUR, IGNORE, MEDIUM)
-    insert('Lion', MAMMAL, YELLOW, FUR, AFRICA, MEDIUM)
-
     return pd.DataFrame(
-        data=animals,
-        columns=['name', 'type', 'color', 'skin_type', 'origin', 'size'],
+        data=list(animals),
+        columns=['name', 'type', 'color', 'skin_type',
+                 'origin', 'size', 'diet'],
     )
 
-# load_animals().to_csv(path.join(BASE_DIR, 'animals.csv'))
+
+load_animals().to_csv(path.join(BASE_DIR, 'animals.csv'))
