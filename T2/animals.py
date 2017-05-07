@@ -28,50 +28,59 @@ WHITE = 'Branco'
 YELLOW = 'Amarelo'
 
 # Skin types
-DRY = 'Dry'
-FEATHER = 'Feather'
-FUR = 'Fur'
-SCALE = 'Scale'
-SHELL = 'Shell'
-WET = 'Wet'
+DRY = 'Seca'
+FEATHER = 'Pena'
+FUR = 'Pêlo'
+SCALE = 'Escama'
+SHELL = 'Casco'
+WET = 'Úmida'
 
-# Locations
-AFRICA = 'Africa'
-AMERICA = 'America'
-ASIA = 'Asia'
-EUROPE = 'Europe'
-OCEAN = 'Ocean'
-OCEANIA = 'Oceania'
-POLES = 'North/South Pole'
+# Habitat
+DESERT = 'Deserto'
+FRESHWATER = 'Água Doce'
+GRASSLAND = 'Grassland'
+MOUNTAINS = 'Montanha'
+OCEAN = 'Oceano'
+POLAR = 'Pólo Norte/Sul'
+SWAMP = 'Pântano'
+FOREST = 'Floresta'
+URBAN = 'Urbano'
 
 # Sizes
 # TINY = '< 10 cm'
 # SMALL = '10 cm to 1 m'
 # MEDIUM = '1 m to 2 m'
 # LARGE = '> 2 m'
-TINY = 'Tiny'
-SMALL = 'Small'
-MEDIUM = 'Medium'
-LARGE = 'Large'
+TINY = 'Muito pequeno'
+SMALL = 'Pequeno'
+MEDIUM = 'Médio'
+LARGE = 'Grande'
 
 # Diet
-CARNIVORE = 'Carnivore'
-HERBIVORE = 'Herbivore'
-OMNIVORE = 'Omnivore'
+CARNIVORE = 'Carnívoro'
+HERBIVORE = 'Herbívoro'
+OMNIVORE = 'Omnívoro'
 
 IGNORE = 'ignore'
+YES = 'sim'
+NO = 'não'
 
-
-
-
-
-
+# alpaca
 # anta
+# antilope
 # burro
+# camelo
+# canguru
 # capivara
+# cavalo marinho
+# cervo
 # chipanze
+# coelho
+# corvo
+# flamingo
 # foca
 # gaivota
+# galinha
 # guaxinim
 # hiena
 # hipopotamo
@@ -89,6 +98,7 @@ IGNORE = 'ignore'
 # porco espinho
 # quati
 # rato
+# rinoceronte
 # tamanduá
 # tatu
 # tigre
@@ -97,7 +107,7 @@ IGNORE = 'ignore'
 # zebra
 
 _animals = (
-    ('Peixinho-dourado', FISH, ORANGE, SCALE, IGNORE, TINY,   OMNIVORE),
+    ('Peixinho-dourado', FISH, ORANGE, SCALE, FRESHWATER, TINY,   OMNIVORE),
     ('Orca',             FISH, BLACK,  WET,   OCEAN,  LARGE,  CARNIVORE),
     ('Salmão',           FISH, GREY,   SCALE, OCEAN,  SMALL,  OMNIVORE),
     ('Tubarão',          FISH, GREY,   WET,   OCEAN,  LARGE,  CARNIVORE),
@@ -131,27 +141,15 @@ _animals = (
     ('Avestruz', BIRD, WHITE,  FEATHER, IGNORE, IGNORE, OMNIVORE),
     ('Ema',      BIRD, WHITE,  FEATHER, IGNORE, IGNORE, OMNIVORE),
 
-
-
-# papagaio
-# pinguim
-# coruja
-# gaviao
-# picapau
-# avestruz
-# ema
-
-
-
-    ('Macaco',     MAMMAL, BROWN,  FUR, OCEAN,  LARGE,  OMNIVORE),
-    ('Baleia', MAMMAL, GREY,   WET, OCEAN,  LARGE,  CARNIVORE),
+    ('Macaco',      MAMMAL, BROWN,  FUR, OCEAN,  LARGE,  OMNIVORE),
+    ('Baleia',      MAMMAL, GREY,   WET, OCEAN,  LARGE,  CARNIVORE),
     ('Gato',        MAMMAL, IGNORE, FUR, IGNORE, SMALL,  CARNIVORE),
     ('Vaca',        MAMMAL, IGNORE, FUR, IGNORE, MEDIUM, CARNIVORE),
-    ('Cachorro',        MAMMAL, IGNORE, FUR, IGNORE, SMALL,  CARNIVORE),
-    ('Elefante',   MAMMAL, GREY,   DRY, AFRICA, LARGE,  HERBIVORE),
-    ('Girafa',    MAMMAL, BROWN,  FUR, AFRICA, LARGE,  HERBIVORE),
+    ('Cachorro',    MAMMAL, IGNORE, FUR, IGNORE, SMALL,  CARNIVORE),
+    ('Elefante',    MAMMAL, GREY,   DRY, AFRICA, LARGE,  HERBIVORE),
+    ('Girafa',      MAMMAL, BROWN,  FUR, AFRICA, LARGE,  HERBIVORE),
     ('Cavalo',      MAMMAL, IGNORE, FUR, IGNORE, MEDIUM, HERBIVORE),
-    ('Leão',       MAMMAL, YELLOW, FUR, AFRICA, MEDIUM, CARNIVORE),
+    ('Leão',        MAMMAL, YELLOW, FUR, AFRICA, MEDIUM, CARNIVORE),
 )
 
 
@@ -164,7 +162,7 @@ def load_animals(animals=_animals):
     return pd.DataFrame(
         data=list(animals),
         columns=['name', 'type', 'color', 'skin_type',
-                 'origin', 'size', 'diet'],
+                 'habitat', 'size', 'diet', 'dangerous'],
     )
 
 
