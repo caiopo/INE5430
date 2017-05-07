@@ -8,24 +8,24 @@ from collections import Counter
 BASE_DIR = path.dirname(path.abspath(__file__))
 
 # Type
-FISH = 'Fish'
-AMPHIBIAN = 'Amphibian'
-REPTILE = 'Reptile'
-BIRD = 'Bird'
-MAMMAL = 'Mammal'
+FISH = 'Peixe'
+AMPHIBIAN = 'Anfíbio'
+REPTILE = 'Reptil'
+BIRD = 'Pássaro'
+MAMMAL = 'Mamífero'
 
 # Colors
-BLACK = 'Black'
-BLUE = 'Blue'
-BROWN = 'Brown'
-GREEN = 'Green'
-GREY = 'Grey'
-ORANGE = 'Orange'
-PINK = 'Pink'
-PURPLE = 'Purple'
-RED = 'Red'
-WHITE = 'White'
-YELLOW = 'Yellow'
+BLACK = 'Preto'
+BLUE = 'Azul'
+BROWN = 'Marrom'
+GREEN = 'Verde'
+GREY = 'Cinza'
+ORANGE = 'Laranja'
+PINK = 'Rosa'
+PURPLE = 'Roxo'
+RED = 'Vermelho'
+WHITE = 'Branco'
+YELLOW = 'Amarelo'
 
 # Skin types
 DRY = 'Dry'
@@ -61,31 +61,97 @@ OMNIVORE = 'Omnivore'
 
 IGNORE = 'ignore'
 
+
+
+
+
+
+# anta
+# burro
+# capivara
+# chipanze
+# foca
+# gaivota
+# guaxinim
+# hiena
+# hipopotamo
+# humanos
+# jaguatirica
+# leao marinho
+# lemure
+# lontra
+# morcego
+# mula
+# onca
+# ornitorrinco
+# ovelha
+# porco
+# porco espinho
+# quati
+# rato
+# tamanduá
+# tatu
+# tigre
+# unicornio
+# urso
+# zebra
+
 _animals = (
-    ('Goldfish', FISH, ORANGE, SCALE, IGNORE, TINY,  OMNIVORE),
-    ('Orca',     FISH, BLACK,  WET,   OCEAN,  LARGE, CARNIVORE),
-    ('Salmon',   FISH, GREY,   SCALE, OCEAN,  SMALL, OMNIVORE),
-    ('Shark',    FISH, GREY,   WET,   OCEAN,  LARGE, CARNIVORE),
+    ('Peixinho-dourado', FISH, ORANGE, SCALE, IGNORE, TINY,   OMNIVORE),
+    ('Orca',             FISH, BLACK,  WET,   OCEAN,  LARGE,  CARNIVORE),
+    ('Salmão',           FISH, GREY,   SCALE, OCEAN,  SMALL,  OMNIVORE),
+    ('Tubarão',          FISH, GREY,   WET,   OCEAN,  LARGE,  CARNIVORE),
+    ('Boto',             FISH, PINK,   WET,   OCEAN,  MEDIUM, CARNIVORE),
+    ('Tainha',           FISH, GREY,   WET,   OCEAN,  SMALL,  OMNIVORE),
+    ('Golfinho',         FISH, GREY,   WET,   OCEAN,  LARGE,  CARNIVORE),
 
-    ('Frog', AMPHIBIAN, GREEN, WET, IGNORE, SMALL, CARNIVORE),
+    # revisar anfíbios
+    ('Sapo',       AMPHIBIAN, GREEN, WET, IGNORE, SMALL, CARNIVORE),
+    ('Pereca',     AMPHIBIAN, GREEN, WET, IGNORE, SMALL, CARNIVORE),
+    ('Rã',         AMPHIBIAN, GREEN, WET, IGNORE, SMALL, CARNIVORE),
+    ('Rã',         AMPHIBIAN, BROWN, WET, IGNORE, SMALL, CARNIVORE),
+    ('Salamandra', AMPHIBIAN, GREEN, WET, IGNORE, SMALL, CARNIVORE),
 
-    ('Crocodile', REPTILE, GREEN, DRY,   IGNORE, LARGE, CARNIVORE),
-    ('Turtle',    REPTILE, BROWN, SHELL, IGNORE, SMALL, OMNIVORE),
+    ('Crocodilo', REPTILE, GREEN,  DRY,   IGNORE, LARGE, CARNIVORE),
+    ('Jacaré',    REPTILE, GREEN,  DRY,   IGNORE, LARGE, CARNIVORE),
+    ('Tartaruga', REPTILE, BROWN,  SHELL, IGNORE, SMALL, OMNIVORE),
+    ('Lagarto',   REPTILE, IGNORE, SCALE, IGNORE, SMALL, OMNIVORE),
+    ('Jibóia',    REPTILE, BROWN,  DRY,   IGNORE, LARGE, CARNIVORE),
+    ('Dragão',    REPTILE, IGNORE, SCALE, IGNORE, LARGE, CARNIVORE),
 
-    ('Duck',   BIRD, IGNORE, FEATHER, IGNORE,  SMALL,  OMNIVORE),
-    ('Eagle',  BIRD, BROWN,  FEATHER, AMERICA, MEDIUM, CARNIVORE),
-    ('Falcon', BIRD, BROWN,  FEATHER, IGNORE,  SMALL,  CARNIVORE),
-    ('Swan',   BIRD, WHITE,  FEATHER, AMERICA, IGNORE, OMNIVORE),
+    ('Pato',     BIRD, IGNORE, FEATHER, IGNORE,  SMALL,  OMNIVORE),
+    ('Águia',    BIRD, BROWN,  FEATHER, AMERICA, MEDIUM, CARNIVORE),
+    ('Falcão',   BIRD, BROWN,  FEATHER, IGNORE,  SMALL,  CARNIVORE),
+    ('Cisne',    BIRD, WHITE,  FEATHER, AMERICA, IGNORE, OMNIVORE),
+    ('Papagaio', BIRD, GREEN,  FEATHER, IGNORE, IGNORE, HERBIVORE),
+    ('Pinguim',  BIRD, BLACK,  FEATHER, IGNORE, IGNORE, OMNIVORE),
+    ('Coruja',   BIRD, WHITE,  FEATHER, IGNORE, IGNORE, OMNIVORE),
+    ('Gaviao',   BIRD, WHITE,  FEATHER, IGNORE, IGNORE, OMNIVORE),
+    ('Picapau',  BIRD, WHITE,  FEATHER, IGNORE, IGNORE, OMNIVORE),
+    ('Avestruz', BIRD, WHITE,  FEATHER, IGNORE, IGNORE, OMNIVORE),
+    ('Ema',      BIRD, WHITE,  FEATHER, IGNORE, IGNORE, OMNIVORE),
 
-    ('Monkey',     MAMMAL, BROWN,  FUR, OCEAN,  LARGE,  OMNIVORE),
-    ('Blue Whale', MAMMAL, GREY,   WET, OCEAN,  LARGE,  CARNIVORE),
-    ('Cat',        MAMMAL, IGNORE, FUR, IGNORE, SMALL,  CARNIVORE),
-    ('Cow',        MAMMAL, IGNORE, FUR, IGNORE, MEDIUM, CARNIVORE),
-    ('Dog',        MAMMAL, IGNORE, FUR, IGNORE, SMALL,  CARNIVORE),
-    ('Elephant',   MAMMAL, GREY,   DRY, AFRICA, LARGE,  HERBIVORE),
-    ('Giraffe',    MAMMAL, BROWN,  FUR, AFRICA, LARGE,  HERBIVORE),
-    ('Horse',      MAMMAL, IGNORE, FUR, IGNORE, MEDIUM, HERBIVORE),
-    ('Lion',       MAMMAL, YELLOW, FUR, AFRICA, MEDIUM, CARNIVORE),
+
+
+# papagaio
+# pinguim
+# coruja
+# gaviao
+# picapau
+# avestruz
+# ema
+
+
+
+    ('Macaco',     MAMMAL, BROWN,  FUR, OCEAN,  LARGE,  OMNIVORE),
+    ('Baleia', MAMMAL, GREY,   WET, OCEAN,  LARGE,  CARNIVORE),
+    ('Gato',        MAMMAL, IGNORE, FUR, IGNORE, SMALL,  CARNIVORE),
+    ('Vaca',        MAMMAL, IGNORE, FUR, IGNORE, MEDIUM, CARNIVORE),
+    ('Cachorro',        MAMMAL, IGNORE, FUR, IGNORE, SMALL,  CARNIVORE),
+    ('Elefante',   MAMMAL, GREY,   DRY, AFRICA, LARGE,  HERBIVORE),
+    ('Girafa',    MAMMAL, BROWN,  FUR, AFRICA, LARGE,  HERBIVORE),
+    ('Cavalo',      MAMMAL, IGNORE, FUR, IGNORE, MEDIUM, HERBIVORE),
+    ('Leão',       MAMMAL, YELLOW, FUR, AFRICA, MEDIUM, CARNIVORE),
 )
 
 

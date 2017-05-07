@@ -15,7 +15,7 @@ class Classifier:
         self.df = df.copy()
         self.ask = ask
         self.properties = list(df.columns[1:])
-        self.info = []
+        self.info = {}
 
     def largest_group(self):
         global_groups = []
@@ -38,7 +38,7 @@ class Classifier:
             if self.ask(prop, category):
                 self.properties.remove(prop)
                 self.df = self.df.loc[indexes]
-                self.info.append((prop, category))
+                self.info[prop] = category
             else:
                 self.df.drop(indexes, inplace=True)
 

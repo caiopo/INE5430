@@ -1,4 +1,7 @@
 import unittest
+
+from statistics import mean
+
 from animals import load_animals, IGNORE
 from classifier import Classifier
 
@@ -22,6 +25,8 @@ class ClassifierTest(unittest.TestCase):
         self.df = load_animals()
 
     def test_discover(self):
+        count = []
+
         for animal in self.df.to_dict(orient='records'):
             ask = make_ask(animal)
 
@@ -29,7 +34,13 @@ class ClassifierTest(unittest.TestCase):
 
             result = classifier.discover_animals()
 
+            print(animal['name'], list(result.name), classifier.info)
+
             self.assertIn(animal['name'], list(result.name))
+
+            count.append(ask.count())
+
+        print(mean(count))
 
     def test_load_fail(self):
         with self.assertRaises(ValueError):
