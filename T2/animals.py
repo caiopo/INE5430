@@ -65,24 +65,6 @@ IGNORE = 'ignore'
 YES = True
 NO = False
 
-
-# burro
-# capivara
-# cervo
-# chipanze
-# esquilo
-# guaxinim
-# gorila
-# hiena
-# iguana
-# jaguatirica
-# lemure
-# lontra
-# onca
-# quati
-# tamanduá
-
-
 _animals = (
     ('Boto',             FISH, PINK,   WET,   OCEAN,      MEDIUM, CARNIVORE, IGNORE),
     ('Cavalo Marinho',   FISH, IGNORE, WET,   OCEAN,      TINY,   CARNIVORE, NO),
@@ -102,6 +84,7 @@ _animals = (
 
     ('Cobra',     REPTILE, BROWN,  DRY,   FOREST, LARGE, CARNIVORE, YES),
     ('Crocodilo', REPTILE, GREEN,  DRY,   SWAMP,  LARGE, CARNIVORE, YES),
+    ('Iguana',    REPTILE, GREEN,  DRY,   FOREST,  SMALL, Herbívoro, NO),
     ('Jacaré',    REPTILE, GREEN,  DRY,   SWAMP,  LARGE, CARNIVORE, YES),
     ('Lagarto',   REPTILE, IGNORE, SCALE, FOREST, SMALL, OMNIVORE,  NO),
     ('Tartaruga', REPTILE, BROWN,  SHELL, OCEAN,  SMALL, OMNIVORE,  NO),
@@ -126,28 +109,41 @@ _animals = (
     ('Alpaca',       MAMMAL, IGNORE, FUR,    MOUNTAIN,  MEDIUM, HERBIVORE, NO),
     ('Anta',         MAMMAL, GREY,   FUR,    FOREST,    MEDIUM, HERBIVORE, NO),
     ('Baleia',       MAMMAL, GREY,   WET,    OCEAN,     LARGE,  CARNIVORE, YES),
+    ('Burro',        MAMMAL, BROWN,  FUR,    URBAN,     MEDIUM, HERBIVORE, NO),
     ('Cachorro',     MAMMAL, IGNORE, FUR,    URBAN,     SMALL,  CARNIVORE, NO),
     ('Camelo',       MAMMAL, YELLOW, FUR,    DESERT,    MEDIUM, HERBIVORE, NO),
     ('Canguru',      MAMMAL, BROWN,  FUR,    GRASSLAND, MEDIUM, HERBIVORE, NO),
+    ('Capivara',     MAMMAL, BROWN,  FUR,    IGNORE,    SMALL,  HERBIVORE, NO),
     ('Cavalo',       MAMMAL, IGNORE, FUR,    GRASSLAND, MEDIUM, HERBIVORE, NO),
+    ('Cervo',        MAMMAL, BROWN,  FUR,    IGNORE,    MEDIUM, HERBIVORE, NO),
+    ('Chimpanzé',    MAMMAL, GREY,   FUR,    FOREST,    SMALL,  OMNIVORE,  NO),
     ('Coelho',       MAMMAL, GREY,   FUR,    IGNORE,    MEDIUM, HERBIVORE, NO),
     ('Elefante',     MAMMAL, GREY,   DRY,    GRASSLAND, LARGE,  HERBIVORE, IGNORE),
+    ('Esquilo',      MAMMAL, IGNORE, FUR,    IGNORE,    SMALL,  HERBIVORE, NO),
     ('Foca',         MAMMAL, GREY,   FUR,    POLAR,     MEDIUM, CARNIVORE, IGNORE),
     ('Gato',         MAMMAL, IGNORE, FUR,    URBAN,     SMALL,  CARNIVORE, NO),
     ('Girafa',       MAMMAL, BROWN,  FUR,    GRASSLAND, LARGE,  HERBIVORE, NO),
+    ('Gorila',       MAMMAL, GREY,   FUR,    FOREST,    LARGE,  HERBIVORE, YES),
+    ('Guaxinim',     MAMMAL, GREY,   FUR,    FOREST,    SMALL,  OMNIVORE,  IGNORE),
+    ('Hiena',        MAMMAL, BROWN,  FUR,    GRASSLAND, MEDIUM, CARNIVORE, YES),
     ('Hipopótamo',   MAMMAL, BROWN,  WET,    IGNORE,    LARGE,  HERBIVORE, YES),
     ('Humano',       MAMMAL, IGNORE, IGNORE, FOREST,    MEDIUM, OMNIVORE,  YES),
     ('Leão Marinho', MAMMAL, GREY,   DRY,    POLAR,     MEDIUM, CARNIVORE, IGNORE),
     ('Leão',         MAMMAL, YELLOW, FUR,    GRASSLAND, MEDIUM, CARNIVORE, YES),
+    ('Lemure',       MAMMAL, IGNORE, FUR,    FOREST,    SMALL,  HERBIVORE, IGNORE),
     ('Lobo',         MAMMAL, GREY,   FUR,    FOREST,    MEDIUM, CARNIVORE, YES),
+    ('Lontra',       MAMMAL, IGNORE, FUR,    IGNORE,    SMALL,  CARNIVORE, NO),
     ('Macaco',       MAMMAL, BROWN,  FUR,    FOREST,    LARGE,  OMNIVORE,  NO),
     ('Morcego',      MAMMAL, BLACK,  FUR,    IGNORE,    SMALL,  OMNIVORE,  NO),
+    ('Onça',         MAMMAL, ORANGE, FUR,    GRASSLAND, MEDIUM, CARNIVORE, YES),
     ('Onitorrinco',  MAMMAL, BROWN,  FUR,    IGNORE,    SMALL,  CARNIVORE, IGNORE),
     ('Ovelha',       MAMMAL, WHITE,  FUR,    GRASSLAND, MEDIUM, HERBIVORE, NO),
     ('Porco',        MAMMAL, PINK,   FUR,    URBAN,     MEDIUM, OMNIVORE,  NO),
+    ('Quati',        MAMMAL, IGNORE, FUR,    FOREST,    SMALL,  CARNIVORE, NO),
     ('Raposa',       MAMMAL, ORANGE, FUR,    IGNORE,    SMALL,  CARNIVORE, IGNORE),
     ('Rato',         MAMMAL, GREY,   FUR,    URBAN,     SMALL,  CARNIVORE, YES),
     ('Rinoceronte',  MAMMAL, GREY,   DRY,    GRASSLAND, LARGE,  HERBIVORE, YES),
+    ('Tamanduá',     MAMMAL, IGNORE, FUR,    GRASSLAND, MEDIUM, CARNIVORE, NO),
     ('Tatu',         MAMMAL, IGNORE, SHELL,  IGNORE,    TINY,   HERBIVORE, NO),
     ('Tigre',        MAMMAL, ORANGE, FUR,    GRASSLAND, MEDIUM, CARNIVORE, YES),
     ('Urso',         MAMMAL, BROWN,  FUR,    IGNORE,    LARGE,  CARNIVORE, YES),
