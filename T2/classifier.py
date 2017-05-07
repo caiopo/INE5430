@@ -1,6 +1,6 @@
 from animals import load_animals, IGNORE
+from questions import YES, NO, UNKNOWN
 from statistics import mean
-
 
 class Classifier:
     def __init__(self, df, ask):
@@ -35,12 +35,25 @@ class Classifier:
 
             prop, category, indexes = self.largest_group()
 
-            if self.ask(prop, category):
+            response = self.ask(prop, category)
+
+            if response == YES:
                 self.properties.remove(prop)
                 self.df = self.df.loc[indexes]
                 self.info[prop] = category
-            else:
+            elif response == NO:
                 self.df.drop(indexes, inplace=True)
+
+                if prop == 'dangerous':
+                    self.properties.remove(prop)
+
+            elif response == UNKNOWN:
+                self.properties.remove(prop)
+
+            else:
+                raise Exception('uh oh')
+
+            # print(self.df)
 
         return self.df
 
