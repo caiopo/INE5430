@@ -17,14 +17,42 @@
 
 \maketitle
 
-\section{Regras}
+\section{Descrição}
+
+Magic Jinn é um brinquedo infantil na forma de um animal no qual ele diz ler sua mente. O objetivo é que a pessoa pense em um animal e ele fará uma sequência de perguntas que podem ser respondidas com  \textit{Sim}, \textit{Não}, \textit{Não Sei} ou \textit{Talvez} e a partir das respostas ele deduz qual era o animal que a pessoa estava pensando.
+
+Uma ontologia é um modelo de dados que representa um conjunto de conceitos dentro de um domínio e os relacionamentos entre estes e é utilizada para realizar inferência sobre os objetos do domínio. Assim como o Magic Jinn o domínio utilizado neste trabalho são animais.
+
 
 \section{Detalhes de Implementação}
 
+As ontologias geralmente descrevem índividuos com seus relacionamentos e atributos, para o trabalho foram definidas uma série de características comuns entre os animais para conseguir extrair através das perguntas grupos de animais que podem ser o que o jogador está pensando. Dentre estas características estão:
+
+\begin{itemize}
+    \item Tipo (Peixe, Anfpibio, Réptil, Pássaro ou  Mamífero)
+    \item Cor (Preto, Azul, Marrom, Verde, Cinza, Laranja, Rosa, Vermelho, Roxo, Branco, Amarelo)
+    \item Pele (Couro, Pena, Pêlo, Escama, Casco, Úmida)
+    \item Hábitat (Deserto, Água Doce, Planície, Montanha, Oceano, Pólo Norte/Sul, Pântano, Floresta, Urbano)
+    \item Tamanho (Muito Pequeno, Pequeno, Médio, Grande)
+    \item Dieta (Carnívoro, Herbívoro, Onívoro)
+\end{itemize}
+
+O grupo dos invertebrados não foi utilizado pela dificuldade em definir algumas propriedades e também foi adicionada uma característica na forma de [Sim/Não] para definir se o animal é perigoso para humanos.
+
+%INCLUIR O CSV QUE APARECE NO GIT PRA MOSTRAR OS ANIMAIS QUE ESTAO NA BASE
+%\includegraphics[width=\textwidth]{animals_csv}
+
 \section{Algoritmos}
+
+%talvez explicar como o pandas funciona e o que acontece quando o sistema recebe o resultado de cada pergunta
 
 \section{Testes}
 
-\section{Opções de execução do programa}
+%descrever passo a passo a partir da escolha de um animal e ver o andamento do programa
+
+\section{Execução do Programa}
+
+%como faz pra rodar, talvez seja aqui que fale da necessidade de ter o pandas instalado e formas como pode fazer isso
 
 \end{document}
+
