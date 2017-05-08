@@ -10,7 +10,7 @@ BASE_DIR = path.dirname(path.abspath(__file__))
 FISH = 'Peixe'
 AMPHIBIAN = 'Anfíbio'
 REPTILE = 'Reptil'
-BIRD = 'Pássaro'
+BIRD = 'Ave'
 MAMMAL = 'Mamífero'
 
 # Colors
@@ -46,10 +46,6 @@ FOREST = 'Floresta'
 URBAN = 'Urbano'
 
 # Sizes
-# TINY = '< 10 cm'
-# SMALL = '10 cm to 1 m'
-# MEDIUM = '1 m to 2 m'
-# LARGE = '> 2 m'
 TINY = 'Muito pequeno'
 SMALL = 'Pequeno'
 MEDIUM = 'Médio'
@@ -71,7 +67,7 @@ _animals = (
     ('Golfinho',         FISH, GREY,   WET,   OCEAN,      LARGE,  CARNIVORE, IGNORE),
     ('Orca',             FISH, BLACK,  WET,   OCEAN,      LARGE,  CARNIVORE, YES),
     ('Peixinho-dourado', FISH, ORANGE, SCALE, FRESHWATER, TINY,   OMNIVORE,  NO),
-    ('Piranha',          FISH, GREY,   WET,   FRESHWATER,      SMALL,  CARNIVORE, YES),
+    ('Piranha',          FISH, GREY,   WET,   FRESHWATER, SMALL,  CARNIVORE, YES),
     ('Salmão',           FISH, GREY,   SCALE, OCEAN,      SMALL,  OMNIVORE,  NO),
     ('Tainha',           FISH, GREY,   WET,   OCEAN,      SMALL,  OMNIVORE,  NO),
     ('Tubarão',          FISH, GREY,   WET,   OCEAN,      LARGE,  CARNIVORE, YES),
@@ -82,12 +78,12 @@ _animals = (
     ('Salamandra', AMPHIBIAN, GREEN, WET, FOREST, SMALL, CARNIVORE, IGNORE),
     ('Sapo',       AMPHIBIAN, GREEN, WET, FOREST, SMALL, CARNIVORE, NO),
 
-    ('Cobra',     REPTILE, BROWN,  DRY,   FOREST, LARGE, CARNIVORE, YES),
-    ('Crocodilo', REPTILE, GREEN,  DRY,   SWAMP,  LARGE, CARNIVORE, YES),
-    ('Iguana',    REPTILE, GREEN,  DRY,   FOREST,  SMALL, Herbívoro, NO),
-    ('Jacaré',    REPTILE, GREEN,  DRY,   SWAMP,  LARGE, CARNIVORE, YES),
-    ('Lagarto',   REPTILE, IGNORE, SCALE, FOREST, SMALL, OMNIVORE,  NO),
-    ('Tartaruga', REPTILE, BROWN,  SHELL, OCEAN,  SMALL, OMNIVORE,  NO),
+    ('Cobra',     REPTILE, BROWN,  DRY,   FOREST, LARGE,  CARNIVORE, YES),
+    ('Crocodilo', REPTILE, GREEN,  DRY,   SWAMP,  LARGE,  CARNIVORE, YES),
+    ('Iguana',    REPTILE, GREEN,  DRY,   FOREST,  SMALL, HERBIVORE, NO),
+    ('Jacaré',    REPTILE, GREEN,  DRY,   SWAMP,  LARGE,  CARNIVORE, YES),
+    ('Lagarto',   REPTILE, IGNORE, SCALE, FOREST, SMALL,  OMNIVORE,  NO),
+    ('Tartaruga', REPTILE, BROWN,  SHELL, OCEAN,  SMALL,  OMNIVORE,  NO),
 
     ('Águia',    BIRD, BROWN,  FEATHER, IGNORE,  MEDIUM, CARNIVORE, YES),
     ('Avestruz', BIRD, WHITE,  FEATHER, IGNORE,  LARGE,  OMNIVORE,  NO),
@@ -97,7 +93,7 @@ _animals = (
     ('Ema',      BIRD, WHITE,  FEATHER, IGNORE,  LARGE,  OMNIVORE,  NO),
     ('Falcão',   BIRD, BROWN,  FEATHER, IGNORE,  SMALL,  CARNIVORE, YES),
     ('Flamingo', BIRD, PINK,   FEATHER, IGNORE,  MEDIUM, CARNIVORE, NO),
-    ('Gaivota',  BIRD, IGNORE, FEATHER, IGNORE,  SMALL,  CARNIVORE, NO),
+    ('Gaivota',  BIRD, WHITE,  FEATHER, IGNORE,  SMALL,  CARNIVORE, NO),
     ('Galinha',  BIRD, BROWN,  FEATHER, URBAN,   SMALL,  OMNIVORE,  NO),
     ('Gaviao',   BIRD, WHITE,  FEATHER, IGNORE,  MEDIUM, OMNIVORE,  YES),
     ('Papagaio', BIRD, GREEN,  FEATHER, FOREST,  SMALL,  HERBIVORE, NO),

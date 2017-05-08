@@ -4,6 +4,7 @@ from statistics import mean
 
 from animals import load_animals, IGNORE
 from classifier import Classifier
+from questions import YES, NO, UNKNOWN
 
 
 def make_ask(chosen):
@@ -12,7 +13,13 @@ def make_ask(chosen):
     def ask(prop, category):
         nonlocal count
         count += 1
-        return chosen[prop] == category
+
+        if category == IGNORE:
+            raise ValueError(prop)
+
+        if chosen[prop] == category:
+            return YES
+        return NO
 
     setattr(ask, 'count', lambda: count)
 
@@ -34,7 +41,7 @@ class ClassifierTest(unittest.TestCase):
 
             result = classifier.discover_animals()
 
-            print(animal['name'], list(result.name), classifier.info)
+            # print(animal['name'], list(result.name), classifier.info)
 
             self.assertIn(animal['name'], list(result.name))
 

@@ -1,6 +1,6 @@
 from animals import load_animals, IGNORE
 from questions import YES, NO, UNKNOWN
-from statistics import mean
+
 
 class Classifier:
     def __init__(self, df, ask):
@@ -35,6 +35,10 @@ class Classifier:
 
             prop, category, indexes = self.largest_group()
 
+            if category == IGNORE:
+                self.properties.remove(prop)
+                continue
+
             response = self.ask(prop, category)
 
             if response == YES:
@@ -53,11 +57,9 @@ class Classifier:
             else:
                 raise Exception('uh oh')
 
-            # print(self.df)
-
         return self.df
 
     def _can_continue(self):
         values = self.df.drop('name', axis=1)
 
-        return len(values.drop_duplicates()) != 1
+        return len(values.drop_duplicates()) != 1 and len(self.properties) > 0
