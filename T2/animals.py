@@ -64,7 +64,6 @@ NO = False
 _animals = (
     ('Boto',             FISH, PINK,   WET,   OCEAN,      MEDIUM, CARNIVORE, IGNORE),
     ('Cavalo Marinho',   FISH, IGNORE, WET,   OCEAN,      TINY,   CARNIVORE, NO),
-    ('Golfinho',         FISH, GREY,   WET,   OCEAN,      LARGE,  CARNIVORE, IGNORE),
     ('Orca',             FISH, BLACK,  WET,   OCEAN,      LARGE,  CARNIVORE, YES),
     ('Peixinho-dourado', FISH, ORANGE, SCALE, FRESHWATER, TINY,   OMNIVORE,  NO),
     ('Piranha',          FISH, GREY,   WET,   FRESHWATER, SMALL,  CARNIVORE, YES),
@@ -119,6 +118,7 @@ _animals = (
     ('Foca',         MAMMAL, GREY,   FUR,    POLAR,     MEDIUM, CARNIVORE, IGNORE),
     ('Gato',         MAMMAL, IGNORE, FUR,    URBAN,     SMALL,  CARNIVORE, NO),
     ('Girafa',       MAMMAL, BROWN,  FUR,    GRASSLAND, LARGE,  HERBIVORE, NO),
+    ('Golfinho',     MAMMAL, GREY,   WET,    OCEAN,     LARGE,  CARNIVORE, IGNORE),
     ('Gorila',       MAMMAL, GREY,   FUR,    FOREST,    LARGE,  HERBIVORE, YES),
     ('Guaxinim',     MAMMAL, GREY,   FUR,    FOREST,    SMALL,  OMNIVORE,  IGNORE),
     ('Hiena',        MAMMAL, BROWN,  FUR,    GRASSLAND, MEDIUM, CARNIVORE, YES),
