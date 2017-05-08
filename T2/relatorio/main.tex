@@ -5,10 +5,12 @@
 \usepackage{graphicx}
 \usepackage{indentfirst}
 \usepackage{verbatim}
+\usepackage{csvsimple}
+
 
 \setlength{\parindent}{20pt}
 
-\title{Inteligência Artificial - Trabalho 2\\Magic Jinn}
+\title{Inteligência Artificial - Trabalho 2\\Jogo de Adivinhações}
 \author{Caio Pereira Oliveira, Salomão Rodrigues Jacinto e William Kraemer Aliaga}
 \date{Maio de 2017}
 
@@ -26,33 +28,88 @@ Uma ontologia é um modelo de dados que representa um conjunto de conceitos dent
 
 \section{Detalhes de Implementação}
 
-As ontologias geralmente descrevem índividuos com seus relacionamentos e atributos, para o trabalho foram definidas uma série de características comuns entre os animais para conseguir extrair através das perguntas grupos de animais que podem ser o que o jogador está pensando. Dentre estas características estão:
+As ontologias geralmente descrevem indivíduos com seus relacionamentos e atributos, para o trabalho foram definidas uma série de características comuns entre os animais para conseguir extrair através das perguntas grupos de animais que podem ser o que o jogador está pensando. Dentre estas características estão:
 
 \begin{itemize}
-    \item Tipo (Peixe, Anfpibio, Réptil, Pássaro ou  Mamífero)
+    \item Tipo (Peixe, Anfíbio, Réptil, Pássaro ou  Mamífero)
     \item Cor (Preto, Azul, Marrom, Verde, Cinza, Laranja, Rosa, Vermelho, Roxo, Branco, Amarelo)
-    \item Pele (Couro, Pena, Pêlo, Escama, Casco, Úmida)
-    \item Hábitat (Deserto, Água Doce, Planície, Montanha, Oceano, Pólo Norte/Sul, Pântano, Floresta, Urbano)
+    \item Pele (Couro, Pena, Pelo, Escama, Casco, Úmida)
+    \item Hábitat (Deserto, Água Doce, Planície, Montanha, Oceano, Polo Norte/Sul, Pântano, Floresta, Urbano)
     \item Tamanho (Muito Pequeno, Pequeno, Médio, Grande)
     \item Dieta (Carnívoro, Herbívoro, Onívoro)
 \end{itemize}
 
-O grupo dos invertebrados não foi utilizado pela dificuldade em definir algumas propriedades e também foi adicionada uma característica na forma de [Sim/Não] para definir se o animal é perigoso para humanos.
+O grupo dos invertebrados não foi utilizado pela dificuldade em definir algumas propriedades e também foi adicionada uma característica na forma de [Sim/Não] para definir se o animal é perigoso para humanos. Abaixo segue a tabela com todos os animais cadastrados:
 
-%INCLUIR O CSV QUE APARECE NO GIT PRA MOSTRAR OS ANIMAIS QUE ESTAO NA BASE
-%\includegraphics[width=\textwidth]{animals_csv}
+%TABELAS
+\pagebreak
+\newgeometry{top=1in, bottom=1in, left=0.3in, right=1in}
+\csvautotabular[respect all]{animals.csv}
+
+\csvautotabular[respect all]{animals2.csv}
+\newgeometry{top=1in, bottom=1in, left=1in, right=1in}
+\pagebreak
+
 
 \section{Algoritmos}
 
 %talvez explicar como o pandas funciona e o que acontece quando o sistema recebe o resultado de cada pergunta
 
-\section{Testes}
 
-%descrever passo a passo a partir da escolha de um animal e ver o andamento do programa
+
+
+\section{Exemplo de Execução}
+
+Abaixo segue como seguiria o jogo se o animal imaginado fosse uma Iguana:
+
+\begin{verbatim}
+Responda com "y" para Sim e "n" para Não
+Qualquer outra resposta será interpretada como "não sei/talvez"
+
+O animal é perigoso para humanos?
+n
+yes
+O animal é um mamífero?
+n
+no
+O animal tem entre 10 centímetros e 1 metro?
+y
+yes
+O animal é onívoro?
+n
+no
+O habitat do animal é "Floresta"?
+y
+yes
+Todos os animais desta espécie possuem a cor verde?
+y
+yes
+O animal é um anfíbio?
+n
+no
+O animal é herbívoro?
+y
+yes
+O animal é um ave?
+n
+no
+      name    type  color skin_type   habitat     size       diet dangerous
+16  Iguana  Reptil  Verde     Couro  Floresta  Pequeno  Herbívoro     False
+\end{verbatim}
+
 
 \section{Execução do Programa}
 
-%como faz pra rodar, talvez seja aqui que fale da necessidade de ter o pandas instalado e formas como pode fazer isso
+Como já mencionado anteriormente o programa utiliza da biblioteca Pandas que pode ser instalada utilizando \textit{pip} na maioria dos computadores com ambiente linux:
+
+\begin{verbatim}
+sudo pip3 install pandas==0.20.1
+\end{verbatim}
+
+Para rodar o programa você precisa dos arquivos disponibilizados \textit{animals.py}, \textit{classifier.py}, \textit{questions.py} e \textit{main.py} e digitar o comando:
+
+\begin{verbatim}
+python main.py
+\end{verbatim}
 
 \end{document}
-
