@@ -6,11 +6,6 @@ NO = 'no'
 UNKNOWN = 'unknown'
 
 
-# columns = (
-#     'type', 'color', 'skin_type', 'habitat', 'size', 'diet', 'dangerous'
-# )
-
-
 def _ask_type(t):
     return 'O animal é um {}?'.format(t.lower())
 
@@ -42,12 +37,6 @@ def _ask_diet(d):
     return 'O animal é {}?'.format(d.lower())
 
 
-# def _ask_dangerous(d):
-#     if d:
-#         return 'O animal é perigoso para humanos?'
-#     return 'O animal NÃO é perigoso para humanos?'
-
-
 questions = {
     'type': _ask_type,
     'color': _ask_color,
@@ -55,7 +44,6 @@ questions = {
     'habitat': _ask_habitat,
     'size': _ask_size,
     'diet': _ask_diet,
-    # 'dangerous': _ask_dangerous,
 }
 
 
@@ -73,8 +61,6 @@ def _input(invert=False):
         elif b == NO:
             b = YES
 
-    print(b)
-
     return b
 
 
@@ -90,3 +76,31 @@ def ask_user(prop, category):
         if category:
             return _input()
         return _input(invert=True)
+
+
+def ask_animal_is(name):
+    print('O animal é {}?'.format(name))
+
+    return _input() == YES
+
+
+# def ask_prop(prop):
+#     p = {
+#         'name': 'nome',
+#         'type': 'tipo (ex: Peixe, Mamífero)',
+#         'color': 'cor',
+#         'skin_type': 'tipo de pele',
+#         'habitat': 'habitat',
+#         'size': 'tamanho',
+#         'diet': 'dieta',
+#         'dangerous': 'é perigoso?',
+#     }[prop]
+
+#     print('Informe o valor da coluna "{}"'.format(p))
+
+#     inp = input()
+
+#     if prop == 'dangerous':
+#         return inp == 'y'
+
+#     return inp

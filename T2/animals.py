@@ -4,8 +4,6 @@ from os import path
 from collections import Counter
 
 
-BASE_DIR = path.dirname(path.abspath(__file__))
-
 # Type
 FISH = 'Peixe'
 AMPHIBIAN = 'Anfíbio'
@@ -60,6 +58,12 @@ IGNORE = 'ignore'
 
 YES = True
 NO = False
+
+columns = (
+    'name', 'type', 'color', 'skin_type', 'habitat', 'size', 'diet', 'dangerous'
+)
+
+propreties = columns[1:]
 
 _animals = (
     ('Boto',             FISH, PINK,   WET,   OCEAN,      MEDIUM, CARNIVORE, IGNORE),
@@ -155,11 +159,9 @@ def load_animals(animals=_animals):
             raise ValueError(
                 "can't have more than 2 ignores on the same animal")
 
-    return pd.DataFrame(
+    df = pd.DataFrame(
         data=list(animals),
-        columns=['name', 'type', 'color', 'skin_type',
-                 'habitat', 'size', 'diet', 'dangerous'],
+        columns=list(columns),
     )
 
-
-load_animals().to_csv(path.join(BASE_DIR, 'animals.csv'))
+    return df

@@ -62,4 +62,4 @@ class Classifier:
     def _can_continue(self):
         values = self.df.drop('name', axis=1)
 
-        return len(values.drop_duplicates()) != 1 and len(self.properties) > 0
+        return len(values.drop_duplicates()) > 1 and len(self.properties) > 0

@@ -41,19 +41,11 @@ class ClassifierTest(unittest.TestCase):
 
             result = classifier.discover_animals()
 
-            # print(animal['name'], list(result.name), classifier.info)
-
             self.assertIn(animal['name'], list(result.name))
 
             count.append(ask.count())
 
         print(mean(count))
-
-    def test_load_fail(self):
-        with self.assertRaises(ValueError):
-            load_animals(
-                [('Any', IGNORE, IGNORE, IGNORE, 'x', 'y', 'z')],
-            )
 
 
 if __name__ == '__main__':
