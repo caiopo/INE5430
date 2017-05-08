@@ -53,9 +53,26 @@ O grupo dos invertebrados não foi utilizado pela dificuldade em definir algumas
 
 \section{Algoritmos}
 
-%talvez explicar como o pandas funciona e o que acontece quando o sistema recebe o resultado de cada pergunta
+Para este trabalho, foi utilizada a biblioteca \textit{pandas}, muito utilizada em ciência de dados, que permite fácil manipulação de dados tabulares.
 
+O principal algoritmo utilizado funciona da seguinte maneira:
 
+\begin{verbatim}
+inicie uma lista de grupos vazia
+
+para cada propriedade p
+    agrupe a tabela pela propriedade p (group by)
+    
+    encontre o maior grupo e adicione-o a lista de grupos
+
+fim para
+
+encontre o maior grupo na lista de grupos e retorne-o
+\end{verbatim}
+
+Este algoritmo é usado encontrar o maior grupo de animais com uma certa característica, então o usuário é questionado se o animal que escolheu possui tal característica.
+
+Se responder positivamente, todos os animais que não possuem esta característica são descartados, senão, todos os animais que possuírem essa característica são descartados.
 
 
 \section{Exemplo de Execução}
@@ -68,39 +85,33 @@ Qualquer outra resposta será interpretada como "não sei/talvez"
 
 O animal é perigoso para humanos?
 n
-yes
 O animal é um mamífero?
 n
-no
 O animal tem entre 10 centímetros e 1 metro?
 y
-yes
 O animal é onívoro?
 n
-no
 O habitat do animal é "Floresta"?
 y
-yes
 Todos os animais desta espécie possuem a cor verde?
 y
-yes
 O animal é um anfíbio?
 n
-no
 O animal é herbívoro?
 y
-yes
 O animal é um ave?
 n
-no
-      name    type  color skin_type   habitat     size       diet dangerous
-16  Iguana  Reptil  Verde     Couro  Floresta  Pequeno  Herbívoro     False
+O animal é Iguana!
+Fim
 \end{verbatim}
+
+
+\pagebreak
 
 
 \section{Execução do Programa}
 
-Como já mencionado anteriormente o programa utiliza da biblioteca Pandas que pode ser instalada utilizando \textit{pip} na maioria dos computadores com ambiente linux:
+Como já mencionado anteriormente o programa utiliza da biblioteca \textit{pandas} que pode ser instalada utilizando \textit{pip} na maioria dos computadores com ambiente linux:
 
 \begin{verbatim}
 sudo pip3 install pandas==0.20.1
@@ -109,7 +120,7 @@ sudo pip3 install pandas==0.20.1
 Para rodar o programa você precisa dos arquivos disponibilizados \textit{animals.py}, \textit{classifier.py}, \textit{questions.py} e \textit{main.py} e digitar o comando:
 
 \begin{verbatim}
-python main.py
+python3 main.py
 \end{verbatim}
 
 \end{document}
