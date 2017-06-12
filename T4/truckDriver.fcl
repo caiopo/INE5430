@@ -18,15 +18,14 @@ FUZZIFY x
 END_FUZZIFY
 
 FUZZIFY y
-    TERM far := (0, 1) (0.7, 0);
     TERM close := (0.7, 0) (1, 1);
 END_FUZZIFY
 
 FUZZIFY angle
     TERM up := (180, 0) (270, 1) (360, 0);
     TERM down := (0, 0) (90, 1) ( 180, 0);
-    TERM left := (0, 1) (90, 0) (269, 0) (360, 1);
-    TERM right := (90, 0) (180, 1) (271, 0);
+    TERM left := (0, 1) (90, 0) (270, 0) (360, 1);
+    TERM right := (90, 0) (180, 1) (270, 0);
 END_FUZZIFY
 
 DEFUZZIFY angleOutput
@@ -41,26 +40,39 @@ RULEBLOCK No1
     ACT : MIN;          // Use 'min' activation method
     ACCU : MAX;         // Use 'max' accumulation method
 
-    RULE 1 : if x is center and angle is left then angleOutput is turnLeft;
+    RULE 1 : if x is left and angle is up then angleOutput is turnRight;
 
-    RULE 2 : if x is center and angle is right then angleOutput is turnRight;
+    RULE 2 : if x is right and angle is up then angleOutput is turnLeft;
 
-    RULE 5 : if x is left and angle is up then angleOutput is turnRight;
+    RULE 3 : if x is left and angle is down then angleOutput is turnLeft;
 
-    RULE 6 : if x is left and angle is down then angleOutput is turnLeft;
+    RULE 4 : if x is right and angle is down then angleOutput is turnRight;
+
+    RULE 5 : if x is center and angle is left then angleOutput is turnLeft;
+
+    RULE 6 : if x is center and angle is right then angleOutput is turnRight;
 
     RULE 7 : if x is left and angle is right then angleOutput is turnRight;
 
-    RULE 8 : if x is left and angle is left then angleOutput is turnLeft;
+    RULE 8 : if x is right and angle is left then angleOutput is turnLeft;
 
-    RULE 9 : if x is right and angle is up then angleOutput is turnLeft;
+    RULE 9 : if x is left and y is close and 
+             (angle is down or angle is left) then angleOutput is turnRight;
 
-    RULE 10 : if x is right and angle is down then angleOutput is turnRight;
+    RULE 10 : if x is right and y is close and 
+              (angle is down or angle is left) then angleOutput is turnLeft;
 
-    RULE 11 : if x is right and angle is right then angleOutput is turnRight;
+    RULE 11 : if x is left and angle is left then angleOutput is turnRight;
 
-    RULE 12 : if x is right and angle is left then angleOutput is turnLeft;
+    RULE 12 : if x is right and angle is right then angleOutput is turnLeft;
 
+    RULE 13 : if x is center and angle is left and y is close 
+              then angleOutput is turnLeft;
+
+    RULE 14 : if x is center and angle is right and y is close 
+              then angleOutput is turnRight;
+
+    RULE 15 : if x is center and angle is up then angleOutput is turnRight;
 
 END_RULEBLOCK
 
