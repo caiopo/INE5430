@@ -1,0 +1,233 @@
+\documentclass[answers]{exam}
+\usepackage[utf8]{inputenc}
+
+\usepackage[brazilian]{babel}
+\usepackage[]{amsmath}
+
+\usepackage{graphicx}
+
+\renewcommand{\solutiontitle}{\noindent\textbf{Resposta:}\newline}
+\newcommand{\devsqrt}{\ensuremath{\frac{\sigma}{\sqrt{n}}}}
+
+\begin{document}
+
+\begin{center}
+Inteligência Artificial - Trabalho 3 Redes Bayesianas \\
+Salomão Rodrigues Jacinto\\
+Caio Pereira Oliveira\\
+Maio de 2017
+\end{center}
+
+\unframedsolutions{}
+
+\section{Parte I}
+\begin{questions}
+
+%-------------------
+% Question 1
+%-------------------
+\question
+\begin{solution}
+\begin{align*}
+\nonumber
+P(Zb=N|Mg=N \land Vr=N) = 0.99
+\end{align*}
+O resultado foi extraído diretamente da rede bayesiana.
+\end{solution}
+
+%-------------------
+% Question 2
+%-------------------
+\question
+\begin{solution}
+\begin{align*}
+    P(Mg=S, Hp=S, Zb=S, Vr=S, Tp=S) 
+    &= P(Mg=S) * P(Hp=S|Mg=S) * \\
+    &\ \ \ \ P(Vr=S) * P(Tp=S|Vr=S) * \\
+    &\ \ \ \ P(Zb=S|Mg=S \land Vr=S)\\
+    &= 0.1 * 0.8 * 0.6 * 0.2 * 0.3\\
+    &=0.00288
+\end{align*}
+\end{solution}
+
+%-------------------
+% Question 3
+%-------------------
+\question
+\begin{solution}
+\begin{align*}
+    P(Zb=S) = &\ P(Zb=S|Mg=S \land Vr=S) * P(Mg=S) * P(Vr=S) +\\
+              &\ P(Zb=S|Mg=S \land Vr=N) * P(Mg=S) * P(Vr=N) +\\
+              &\ P(Zb=S|Mg=N \land Vr=S) * P(Mg=N) * P(Vr=S) +\\
+              &\ P(Zb=S|Mg=N \land Vr=N) * P(Mg=N) * P(Vr=N)
+\end{align*}
+\begin{align*}
+    P(Zb=S) &= (0.6 * 0.1 * 0.2) + (0.5 * 0.1 * 0.8) + \\
+            &\ \ \ \ (0.4 * 0.9 * 0.2) + (0.01 * 0.9 * 0.8)\\
+            &= 0.1312
+\end{align*}
+\end{solution}
+
+%-------------------
+% Question 4
+%-------------------
+\question
+\begin{solution}
+\begin{align*}
+P(Zb=S|Vr=S) &= \frac{P(Zb=S \land Vr=S)}{P(Vr=S)} \\ 
+             &= \frac{(0.6 * 0.1 * 0.2) + (0.4 * 0.9 * 0.2)}{0.2} \\
+             &= 0.42
+\end{align*}
+\begin{align*}
+P(Zb=S \land Vr=S) = &\ P(Zb=S|Vr=S \land Mg=S) * P(Mg=S) * P(Vr=S) + \\ 
+                     &\ P(Zb=S|Vr=S \land Mg=N) * P(Mg=N) * P(Vr=S)
+\end{align*}
+\end{solution}
+
+%-------------------
+% Question 5
+%-------------------
+\question
+\begin{solution}
+Forma 1, utilizando $P(Hp=S \land Zb=S)$. Consideramos também a probabilidade
+a priori de se ver um zumbi já calculado na questão 3.
+\begin{align*}
+P(Hp=S|Zb=S) &= \frac{P(Hp=S \land Zb=S)}{P(Zb=S)} \\
+             &= \frac{(0.0096)+(0.032)+(0.0504)+(0.00504)}{0.1312} \\
+             &= 0.7396
+\end{align*}
+\begin{align*}
+P(Hp=S \land Zb=S) &= P(Zb=S|Mg=S \land Vr=S)*P(Mg=S)*P(Vr=S)+P(Hp=S|Mg=S)+\\
+                   &\ \ \ \ P(Zb=S|Mg=S \land Vr=N)*P(Mg=S)*P(Vr=N)+P(Hp=S|Mg=S)+\\
+                   &\ \ \ \ P(Zb=S|Mg=N \land Vr=S)*P(Mg=N)*P(Vr=S)+P(Hp=S|Mg=N)+\\
+                   &\ \ \ \ P(Zb=S|Mg=N \land Vr=N)*P(Mg=N)*P(Vr=N)+P(Hp=S|Mg=N)   
+\end{align*}
+
+Forma 2, utilizando o raciocínio de como sabemos que vimos um zumbi as chances
+do feitiço mágico são maiores.
+\begin{align*}
+P(Hp=S|Zb=S) &= (P(Hp=S|Mg=S) * P(Mg=S|Zb=S)) + \\
+             &\ \ \ \ (P(Hp=S|Mg=N) * p(Mg=N|Zb=S))\\
+             &= (0.8*0.3963) + (0.7*0.6037)\\
+             &= 0.7396
+\end{align*}
+\begin{align*}
+P(Mg=S|Zb=S) &= \frac{P(Zb=S|Mg=S)*P(Mg=S)}{P(Zb=S)}\\
+             &= \frac{((0.6*0.2)+(0.5*0.8))*0.1}{0.1312}\\
+             &= 0.3963
+\end{align*}
+\begin{align*}
+P(Mg=N|Zb=S) = 1 - P(Mg=S|Zb=S) = 0.6037    
+\end{align*}
+\end{solution}
+
+%-------------------
+% Question 6
+%-------------------
+\question
+\begin{solution}
+Foi utilizado a resposta da questão 5 para se encontrar $P(Hp=S \land Zb=S)$.
+\begin{align*}
+P(Zp=S|Hb=S) &= \frac{P(Hp=S \land Zb=S)}{P(Hp=S)}\\
+             &= \frac{0.097}{0.71}\\
+             &= 0.1367
+\end{align*}
+\begin{align*}
+P(Hp=S) &=(P(Hp=S|Mg=S)*P(Mg=S)) +\\
+        &\ \ \ \ (P(Hp=S|Mg=N)*P(Mg=N))\\
+        &= 0.71
+\end{align*}
+\begin{align*}
+P(Hp=S \land Zb=S) &= P(Hp=S|Zb=S)*P(Zb=S)\\
+                   &= 0.7396 * 0.1312\\
+                   &= 0.097
+\end{align*}
+\end{solution}
+
+%-------------------
+% Question 7
+%-------------------
+\question
+\begin{solution}
+\begin{align*}
+P(Zb=S|Hp=S \land Tp=S) &= P(Zb=S|Mg=S \land Vr=S)*P(Mg=S|Hp=S)*P(Vr=S|Tp=S)+\\
+                        &\ \ \ \ P(Zb=S|Mg=S \land Vr=N)*P(Mg=S|Hp=S)*P(Vr=N|Tp=S)+\\
+                        &\ \ \ \ P(Zb=S|Mg=N \land Vr=S)*P(Mg=N|Hp=S)*P(Vr=S|Tp=S)+\\
+                        &\ \ \ \ P(Zb=S|Mg=N \land Vr=N)*P(Mg=N|Hp=S)*P(Vr=N|Tp=S)\\
+                        &= (0.6*0.1127*0.4286)+\\
+                        &\ \ \ \ (0.5*0.1127*0.5714)+\\
+                        &\ \ \ \ (0.4*0.8873*0.4286)+\\  
+                        &\ \ \ \ (0.01*0.8873*0.5714)\\  
+                        &=0.2183   
+\end{align*}
+\begin{align*}
+P(Mg=S|Hp=S) &= \frac{P(Hp=S|Mg=S)*P(Mg=S)}{P(Hp=S)}\\
+             &= \frac{0.8*0.1}{0.71}\\
+             &= 0.1127
+\end{align*}
+\begin{align*}
+P(Mg=N|Hp=S) = 1 - P(Mg=S|Hp=S) = 0.8873
+\end{align*}
+\begin{align*}
+P(Vr=S|Tp=S) &= \frac{P(Tp=S|Vr=S)*P(Vr=S)}{P(Tp=S)}\\
+             &= \frac{0.3*0.2}{0.14}\\
+             &= 0.4286
+\end{align*}
+\begin{align*}
+P(Tp=S) &=(P(Tp=S|Vr=S)*P(Vr=S)) +\\
+        &\ \ \ \ (P(Tp=S|Vr=N)*P(Vr=N))\\
+        &= 0.14
+\end{align*}
+\begin{align*}
+P(Vr=N|Tp=S) = 1 - P(Vr=S|Tp=S) = 0.5714
+\end{align*}
+\end{solution}
+\end{questions}
+
+\pagebreak
+%-------------------
+% Part 2
+%-------------------
+\section{Parte II}
+ 
+%-------------------
+% Question 1
+%------------------- 
+\begin{questions}
+\question
+\begin{solution}
+\includegraphics[width=\textwidth]{diagram}
+\end{solution}
+
+%-------------------
+% Question 2
+%-------------------
+\question
+\begin{solution}
+\begin{align*}
+P(Cola=S) &= P(Cola=S|Pop=Uni)+\\
+          &\ \ \ \ P(Cola=S|Pop=Sec)+\\
+          &\ \ \ \ P(Cola=S|Pop=Fun)\\
+          &= (0.6*0.1)+(0.8*0.3)+(0*0.6) = 0.3
+\end{align*}
+\end{solution}
+
+%-------------------
+% Question 3
+%-------------------
+\question
+\begin{solution}
+\begin{align*}
+P(Sec=S|Ver=S \land Pen=S) &= \frac{P(Sec=S \land Ver=S \land Pen=S)}{P(Ver=S \land Pen=S)}\\
+                           &= \frac{0.0000888}{0.44*0.0074}\\
+                           &= 0.02727
+\end{align*}
+\begin{align*}
+P(Sec=S \land Ver=S \land Pen=S) &= P(Sec=S)*P(Cola=S|Sec=S)*\\
+                                 &\ \ \ \ P(Est=S|Sec=S)*P(Pen=S|Cola=S)*\\
+                                 &\ \ \ \ P(Pen=S|Est=S)*P(Ver=S|Sec=S)\\
+                                 &= 0.3*0.8*0.5*0.02*0.037*1 = 0.0000888
+\end{align*}
+\end{solution}
+\end{questions}
+\end{document}
